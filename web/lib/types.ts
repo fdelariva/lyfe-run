@@ -13,12 +13,6 @@ export interface CoachSignupData {
   bio: string;
   // Passo 3: Plano
   plan: PlanType;
-  // Passo 4: Pagamento
-  paymentMethod: "credit_card" | "pix" | "bank_transfer";
-  cardNumber?: string;
-  cardName?: string;
-  cardExpiry?: string;
-  cardCvv?: string;
 }
 
 export const PLAN_DETAILS = {

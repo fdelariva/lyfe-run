@@ -8,12 +8,12 @@ import { StepIndicator } from "@/components/signup/StepIndicator";
 import { StepAccount } from "@/components/signup/StepAccount";
 import { StepPractice } from "@/components/signup/StepPractice";
 import { StepPlanConfirm } from "@/components/signup/StepPlanConfirm";
-import { StepPayment } from "@/components/signup/StepPayment";
 import { StepSuccess } from "@/components/signup/StepSuccess";
 import { CoachSignupData, PlanType } from "@/lib/types";
 import { createCoachAccount } from "@/lib/mock-api";
 
-const STEP_LABELS = ["Conta", "Assessoria", "Plano", "Pagamento"];
+const STEP_LABELS = ["Conta", "Assessoria", "Plano"];
+const TOTAL_STEPS = 3;
 
 function getInitialPlan(params: URLSearchParams): PlanType {
   const plan = params.get("plan");
@@ -48,11 +48,6 @@ function SignupFlow() {
     subdomain: "",
     bio: "",
     plan: getInitialPlan(searchParams),
-    paymentMethod: "credit_card",
-    cardNumber: "",
-    cardName: "",
-    cardExpiry: "",
-    cardCvv: "",
   });
 
   const updateData = (updates: Partial<CoachSignupData>) => {
@@ -84,16 +79,6 @@ function SignupFlow() {
         newErrors.subdomain = "O subdomínio deve ter pelo menos 3 caracteres";
     }
 
-    if (currentStep === 4 && data.paymentMethod === "credit_card") {
-      if (!data.cardNumber || data.cardNumber.replace(/\s/g, "").length < 16)
-        newErrors.cardNumber = "Informe um número de cartão válido";
-      if (!data.cardName?.trim()) newErrors.cardName = "Nome no cartão é obrigatório";
-      if (!data.cardExpiry || data.cardExpiry.length < 5)
-        newErrors.cardExpiry = "Informe a validade";
-      if (!data.cardCvv || data.cardCvv.length < 3)
-        newErrors.cardCvv = "Informe o CVV";
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -101,12 +86,12 @@ function SignupFlow() {
   const handleNext = async () => {
     if (!validateStep(step)) return;
 
-    if (step === 4) {
+    if (step === TOTAL_STEPS) {
       setLoading(true);
       try {
         const result = await createCoachAccount(data);
         setCoachId(result.coachId);
-        setStep(5);
+        setStep(TOTAL_STEPS + 1);
       } catch {
         setErrors({ submit: "Algo deu errado. Tente novamente." });
       } finally {
@@ -122,7 +107,7 @@ function SignupFlow() {
     if (step > 1) setStep((s) => s - 1);
   };
 
-  const isSuccess = step === 5;
+  const isSuccess = step === TOTAL_STEPS + 1;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -133,7 +118,7 @@ function SignupFlow() {
           </a>
           {!isSuccess && (
             <span className="text-sm text-[#666666]">
-              Passo {step} de 4
+              Passo {step} de {TOTAL_STEPS}
             </span>
           )}
         </div>
@@ -141,7 +126,7 @@ function SignupFlow() {
 
       <div className="max-w-2xl mx-auto px-4 py-8">
         {!isSuccess && (
-          <StepIndicator currentStep={step} totalSteps={4} labels={STEP_LABELS} />
+          <StepIndicator currentStep={step} totalSteps={TOTAL_STEPS} labels={STEP_LABELS} />
         )}
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
@@ -156,8 +141,7 @@ function SignupFlow() {
               {step === 1 && <StepAccount data={data} onChange={updateData} errors={errors} />}
               {step === 2 && <StepPractice data={data} onChange={updateData} errors={errors} />}
               {step === 3 && <StepPlanConfirm data={data} onChange={updateData} />}
-              {step === 4 && <StepPayment data={data} onChange={updateData} errors={errors} />}
-              {step === 5 && <StepSuccess data={data} coachId={coachId} />}
+              {isSuccess && <StepSuccess data={data} coachId={coachId} />}
             </motion.div>
           </AnimatePresence>
 
@@ -192,7 +176,7 @@ function SignupFlow() {
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" /> Processando...
                   </>
-                ) : step === 4 ? (
+                ) : step === TOTAL_STEPS ? (
                   <>
                     Finalizar Cadastro <ArrowRight className="w-4 h-4" />
                   </>

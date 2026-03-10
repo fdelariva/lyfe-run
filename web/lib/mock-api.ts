@@ -21,7 +21,6 @@ export async function createCoachAccount(
       subdomain: data.subdomain,
       bio: data.bio,
       plan: data.plan,
-      paymentMethod: data.paymentMethod,
     }),
   });
 
