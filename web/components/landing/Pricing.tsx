@@ -104,13 +104,16 @@ export function Pricing() {
               </ul>
 
               {plan.highlighted ? (
-                <Button variant="primary" size="lg" className="w-full">
+                <Button variant="primary" size="lg" className="w-full" href="/signup?plan=gold">
                   {plan.cta}
                 </Button>
               ) : (
-                <button className="w-full py-3 px-6 rounded-lg border-2 border-[#2D6A2B] text-[#2D6A2B] font-semibold hover:bg-[#2D6A2B] hover:text-white transition-all duration-200">
+                <a
+                  href="/signup?plan=basic"
+                  className="block w-full py-3 px-6 rounded-lg border-2 border-[#2D6A2B] text-[#2D6A2B] font-semibold hover:bg-[#2D6A2B] hover:text-white transition-all duration-200 text-center"
+                >
                   {plan.cta}
-                </button>
+                </a>
               )}
             </motion.div>
           ))}
