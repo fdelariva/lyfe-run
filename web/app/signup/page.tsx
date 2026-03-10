@@ -11,9 +11,9 @@ import { StepPlanConfirm } from "@/components/signup/StepPlanConfirm";
 import { StepPayment } from "@/components/signup/StepPayment";
 import { StepSuccess } from "@/components/signup/StepSuccess";
 import { CoachSignupData, PlanType } from "@/lib/types";
-import { createCoachAccount, processPayment } from "@/lib/mock-api";
+import { createCoachAccount } from "@/lib/mock-api";
 
-const STEP_LABELS = ["Account", "Practice", "Plan", "Payment"];
+const STEP_LABELS = ["Conta", "Assessoria", "Plano", "Pagamento"];
 
 function getInitialPlan(params: URLSearchParams): PlanType {
   const plan = params.get("plan");
@@ -57,7 +57,6 @@ function SignupFlow() {
 
   const updateData = (updates: Partial<CoachSignupData>) => {
     setData((prev) => ({ ...prev, ...updates }));
-    // Clear errors for updated fields
     const clearedErrors = { ...errors };
     Object.keys(updates).forEach((key) => delete clearedErrors[key]);
     setErrors(clearedErrors);
@@ -67,32 +66,32 @@ function SignupFlow() {
     const newErrors: Record<string, string> = {};
 
     if (currentStep === 1) {
-      if (!data.firstName.trim()) newErrors.firstName = "First name is required";
-      if (!data.lastName.trim()) newErrors.lastName = "Last name is required";
-      if (!data.email.trim()) newErrors.email = "Email is required";
+      if (!data.firstName.trim()) newErrors.firstName = "Nome é obrigatório";
+      if (!data.lastName.trim()) newErrors.lastName = "Sobrenome é obrigatório";
+      if (!data.email.trim()) newErrors.email = "E-mail é obrigatório";
       else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
-        newErrors.email = "Invalid email address";
-      if (!data.phone.trim()) newErrors.phone = "Phone is required";
-      if (!data.password.trim()) newErrors.password = "Password is required";
+        newErrors.email = "E-mail inválido";
+      if (!data.phone.trim()) newErrors.phone = "Telefone é obrigatório";
+      if (!data.password.trim()) newErrors.password = "Senha é obrigatória";
       else if (data.password.length < 8)
-        newErrors.password = "Password must be at least 8 characters";
+        newErrors.password = "A senha deve ter pelo menos 8 caracteres";
     }
 
     if (currentStep === 2) {
-      if (!data.practiceName.trim()) newErrors.practiceName = "Practice name is required";
-      if (!data.subdomain.trim()) newErrors.subdomain = "Subdomain is required";
+      if (!data.practiceName.trim()) newErrors.practiceName = "Nome da assessoria é obrigatório";
+      if (!data.subdomain.trim()) newErrors.subdomain = "Subdomínio é obrigatório";
       else if (data.subdomain.length < 3)
-        newErrors.subdomain = "Subdomain must be at least 3 characters";
+        newErrors.subdomain = "O subdomínio deve ter pelo menos 3 caracteres";
     }
 
     if (currentStep === 4 && data.paymentMethod === "credit_card") {
       if (!data.cardNumber || data.cardNumber.replace(/\s/g, "").length < 16)
-        newErrors.cardNumber = "Enter a valid card number";
-      if (!data.cardName?.trim()) newErrors.cardName = "Name on card is required";
+        newErrors.cardNumber = "Informe um número de cartão válido";
+      if (!data.cardName?.trim()) newErrors.cardName = "Nome no cartão é obrigatório";
       if (!data.cardExpiry || data.cardExpiry.length < 5)
-        newErrors.cardExpiry = "Enter expiry date";
+        newErrors.cardExpiry = "Informe a validade";
       if (!data.cardCvv || data.cardCvv.length < 3)
-        newErrors.cardCvv = "Enter CVV";
+        newErrors.cardCvv = "Informe o CVV";
     }
 
     setErrors(newErrors);
@@ -103,20 +102,13 @@ function SignupFlow() {
     if (!validateStep(step)) return;
 
     if (step === 4) {
-      // Final step — process payment and create account
       setLoading(true);
       try {
-        await processPayment(data.paymentMethod, {
-          cardNumber: data.cardNumber || "",
-          cardName: data.cardName || "",
-          cardExpiry: data.cardExpiry || "",
-          cardCvv: data.cardCvv || "",
-        });
         const result = await createCoachAccount(data);
         setCoachId(result.coachId);
         setStep(5);
       } catch {
-        setErrors({ submit: "Something went wrong. Please try again." });
+        setErrors({ submit: "Algo deu errado. Tente novamente." });
       } finally {
         setLoading(false);
       }
@@ -134,7 +126,6 @@ function SignupFlow() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
           <a href="/" className="text-xl font-extrabold text-[#2D6A2B]">
@@ -142,13 +133,12 @@ function SignupFlow() {
           </a>
           {!isSuccess && (
             <span className="text-sm text-[#666666]">
-              Step {step} of 4
+              Passo {step} de 4
             </span>
           )}
         </div>
       </div>
 
-      {/* Content */}
       <div className="max-w-2xl mx-auto px-4 py-8">
         {!isSuccess && (
           <StepIndicator currentStep={step} totalSteps={4} labels={STEP_LABELS} />
@@ -175,7 +165,6 @@ function SignupFlow() {
             <p className="mt-4 text-sm text-red-500 text-center">{errors.submit}</p>
           )}
 
-          {/* Navigation buttons */}
           {!isSuccess && (
             <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
               {step > 1 ? (
@@ -183,14 +172,14 @@ function SignupFlow() {
                   onClick={handleBack}
                   className="flex items-center gap-2 text-[#666666] hover:text-[#333333] font-medium transition-colors"
                 >
-                  <ArrowLeft className="w-4 h-4" /> Back
+                  <ArrowLeft className="w-4 h-4" /> Voltar
                 </button>
               ) : (
                 <a
                   href="/"
                   className="flex items-center gap-2 text-[#666666] hover:text-[#333333] font-medium transition-colors"
                 >
-                  <ArrowLeft className="w-4 h-4" /> Home
+                  <ArrowLeft className="w-4 h-4" /> Início
                 </a>
               )}
 
@@ -201,15 +190,15 @@ function SignupFlow() {
               >
                 {loading ? (
                   <>
-                    <Loader2 className="w-5 h-5 animate-spin" /> Processing...
+                    <Loader2 className="w-5 h-5 animate-spin" /> Processando...
                   </>
                 ) : step === 4 ? (
                   <>
-                    Complete Purchase <ArrowRight className="w-4 h-4" />
+                    Finalizar Cadastro <ArrowRight className="w-4 h-4" />
                   </>
                 ) : (
                   <>
-                    Continue <ArrowRight className="w-4 h-4" />
+                    Continuar <ArrowRight className="w-4 h-4" />
                   </>
                 )}
               </button>

@@ -1,19 +1,19 @@
 export type PlanType = "basic" | "gold";
 
 export interface CoachSignupData {
-  // Step 1: Account
+  // Passo 1: Conta
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
   password: string;
-  // Step 2: Practice
+  // Passo 2: Assessoria
   practiceName: string;
   subdomain: string;
   bio: string;
-  // Step 3: Plan
+  // Passo 3: Plano
   plan: PlanType;
-  // Step 4: Payment
+  // Passo 4: Pagamento
   paymentMethod: "credit_card" | "pix" | "bank_transfer";
   cardNumber?: string;
   cardName?: string;
@@ -23,30 +23,30 @@ export interface CoachSignupData {
 
 export const PLAN_DETAILS = {
   basic: {
-    name: "Basic Plan",
+    name: "Plano Basic",
     price: "R$ 200",
-    period: "/ month",
+    period: "/ mês",
     features: [
-      "Up to 20 athletes",
-      "Weekly plan builder",
-      "Strava + GPS recording",
-      "Custom landing page",
-      "PIX, credit card, bank transfer",
-      "Basic analytics",
+      "Até 20 atletas",
+      "Montador de planilha semanal",
+      "Strava + gravação GPS",
+      "Landing page personalizada",
+      "PIX, cartão de crédito, transferência",
+      "Analytics básico",
     ],
   },
   gold: {
-    name: "Gold Plan",
+    name: "Plano Gold",
     price: "3%",
-    period: "of monthly revenue",
+    period: "da receita mensal",
     features: [
-      "Unlimited athletes",
-      "AI training plan generation",
-      "AI session feedback drafting",
-      "Garmin + Apple Watch + Whoop integration",
-      "Advanced analytics + cohort views",
-      "VO2 Max + race time predictions",
-      "Priority support",
+      "Atletas ilimitados",
+      "Geração de planilha por IA",
+      "Feedback pós-treino por IA",
+      "Integração Garmin + Apple Watch + Whoop",
+      "Analytics avançado + visão por grupo",
+      "VO2 Max + previsão de tempos de prova",
+      "Suporte prioritário",
     ],
   },
 } as const;

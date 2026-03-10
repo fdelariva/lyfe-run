@@ -13,9 +13,9 @@ interface StepPlanConfirmProps {
 export function StepPlanConfirm({ data, onChange }: StepPlanConfirmProps) {
   return (
     <div>
-      <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Confirm your plan</h2>
+      <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Confirme seu plano</h2>
       <p className="text-[#666666] mb-6">
-        You can change plans anytime. Both include a 14-day free trial.
+        Você pode trocar de plano a qualquer momento. Ambos incluem 14 dias grátis.
       </p>
 
       <div className="grid sm:grid-cols-2 gap-4">
@@ -38,7 +38,7 @@ export function StepPlanConfirm({ data, onChange }: StepPlanConfirmProps) {
                 <div>
                   {planKey === "gold" && (
                     <div className="inline-flex items-center gap-1 bg-[#4CAF50] text-white text-xs font-medium px-2 py-0.5 rounded-full mb-2">
-                      <Star className="w-3 h-3" /> Most Popular
+                      <Star className="w-3 h-3" /> Mais Popular
                     </div>
                   )}
                   <h3 className="text-lg font-bold text-[#1A1A2E]">{plan.name}</h3>
@@ -73,8 +73,8 @@ export function StepPlanConfirm({ data, onChange }: StepPlanConfirmProps) {
 
       <div className="mt-6 bg-gray-50 rounded-lg p-4 text-center">
         <p className="text-sm text-[#666666]">
-          🎉 <span className="font-medium text-[#333333]">14-day free trial</span> — no credit card required to start.
-          You&apos;ll only be charged after your trial ends.
+          🎉 <span className="font-medium text-[#333333]">14 dias grátis</span> — sem necessidade de cartão de crédito.
+          A cobrança só começa após o período de teste.
         </p>
       </div>
     </div>

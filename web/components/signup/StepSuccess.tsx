@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { CheckCircle, ArrowRight, ExternalLink } from "lucide-react";
+import { CheckCircle, ExternalLink, Headphones } from "lucide-react";
 import { CoachSignupData, PLAN_DETAILS } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 
@@ -30,10 +30,10 @@ export function StepSuccess({ data, coachId }: StepSuccessProps) {
         transition={{ delay: 0.3 }}
       >
         <h2 className="text-3xl font-extrabold text-[#1A1A2E] mb-2">
-          Welcome to Lyfe Run!
+          Cadastro realizado com sucesso!
         </h2>
-        <p className="text-[#666666] text-lg mb-8">
-          Your coaching practice is live. Let&apos;s get your first athlete on board.
+        <p className="text-[#666666] text-lg mb-4">
+          Obrigado pelo interesse no Lyfe Run, {data.firstName}!
         </p>
       </motion.div>
 
@@ -41,33 +41,50 @@ export function StepSuccess({ data, coachId }: StepSuccessProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-[#E8F5E9] rounded-xl p-6 mb-8 max-w-md mx-auto text-left"
+        className="bg-[#E8F5E9] rounded-xl p-6 mb-6 max-w-md mx-auto"
       >
-        <h3 className="font-bold text-[#1A1A2E] mb-3">Your details</h3>
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <Headphones className="w-8 h-8 text-[#2D6A2B]" />
+          <h3 className="font-bold text-[#1A1A2E] text-lg">Próximos passos</h3>
+        </div>
+        <p className="text-[#333333] leading-relaxed">
+          Um especialista da nossa equipe entrará em contato em breve para finalizar a configuração da sua conta e acertar os detalhes de pagamento e faturamento.
+        </p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7 }}
+        className="bg-gray-50 rounded-xl p-6 mb-8 max-w-md mx-auto text-left"
+      >
+        <h3 className="font-bold text-[#1A1A2E] mb-3">Seus dados</h3>
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
-            <span className="text-[#666666]">Practice</span>
+            <span className="text-[#666666]">Assessoria</span>
             <span className="font-medium text-[#333333]">{data.practiceName}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-[#666666]">Your page</span>
+            <span className="text-[#666666]">Sua página</span>
             <span className="font-medium text-[#2D6A2B] flex items-center gap-1">
               lyferun.com/{data.subdomain}
               <ExternalLink className="w-3 h-3" />
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-[#666666]">Plan</span>
+            <span className="text-[#666666]">Plano</span>
             <span className="font-medium text-[#333333]">{plan.name}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-[#666666]">Trial ends</span>
-            <span className="font-medium text-[#333333]">
-              {new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString("pt-BR")}
-            </span>
+            <span className="text-[#666666]">E-mail</span>
+            <span className="font-medium text-[#333333]">{data.email}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-[#666666]">Coach ID</span>
+            <span className="text-[#666666]">Telefone</span>
+            <span className="font-medium text-[#333333]">{data.phone}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-[#666666]">ID</span>
             <span className="font-mono text-xs text-gray-400">{coachId}</span>
           </div>
         </div>
@@ -76,24 +93,21 @@ export function StepSuccess({ data, coachId }: StepSuccessProps) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
-        className="space-y-3 max-w-sm mx-auto"
+        transition={{ delay: 0.9 }}
+        className="max-w-sm mx-auto"
       >
-        <Button variant="primary" size="lg" className="w-full gap-2">
-          Go to Dashboard <ArrowRight className="w-5 h-5" />
-        </Button>
         <Button variant="ghost" size="md" href="/" className="w-full text-[#2D6A2B] border-[#2D6A2B] hover:bg-[#2D6A2B] hover:text-white">
-          Back to Homepage
+          Voltar para a página inicial
         </Button>
       </motion.div>
 
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.9 }}
+        transition={{ delay: 1.1 }}
         className="text-sm text-[#666666] mt-8"
       >
-        A confirmation email has been sent to <span className="font-medium">{data.email}</span>
+        Um e-mail de confirmação foi enviado para <span className="font-medium">{data.email}</span>
       </motion.p>
     </div>
   );

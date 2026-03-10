@@ -50,14 +50,14 @@ function InputField({
 export function StepAccount({ data, onChange, errors }: StepAccountProps) {
   return (
     <div>
-      <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Create your account</h2>
-      <p className="text-[#666666] mb-6">Let&apos;s get you set up as a coach on Lyfe Run.</p>
+      <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Crie sua conta</h2>
+      <p className="text-[#666666] mb-6">Vamos configurar seu perfil de treinador no Lyfe Run.</p>
 
       <div className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <InputField
             icon={User}
-            label="First name"
+            label="Nome"
             placeholder="João"
             value={data.firstName}
             onChange={(val) => onChange({ firstName: val })}
@@ -65,7 +65,7 @@ export function StepAccount({ data, onChange, errors }: StepAccountProps) {
           />
           <InputField
             icon={User}
-            label="Last name"
+            label="Sobrenome"
             placeholder="Silva"
             value={data.lastName}
             onChange={(val) => onChange({ lastName: val })}
@@ -74,16 +74,16 @@ export function StepAccount({ data, onChange, errors }: StepAccountProps) {
         </div>
         <InputField
           icon={Mail}
-          label="Email"
+          label="E-mail"
           type="email"
-          placeholder="joao@example.com"
+          placeholder="joao@exemplo.com"
           value={data.email}
           onChange={(val) => onChange({ email: val })}
           error={errors.email}
         />
         <InputField
           icon={Phone}
-          label="Phone (WhatsApp)"
+          label="Telefone (WhatsApp)"
           type="tel"
           placeholder="+55 11 99999-9999"
           value={data.phone}
@@ -92,9 +92,9 @@ export function StepAccount({ data, onChange, errors }: StepAccountProps) {
         />
         <InputField
           icon={Lock}
-          label="Password"
+          label="Senha"
           type="password"
-          placeholder="Min. 8 characters"
+          placeholder="Mínimo 8 caracteres"
           value={data.password}
           onChange={(val) => onChange({ password: val })}
           error={errors.password}

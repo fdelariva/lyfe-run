@@ -12,9 +12,9 @@ interface StepPaymentProps {
 }
 
 const paymentMethods = [
-  { key: "credit_card" as const, label: "Credit Card", sublabel: "Visa, Mastercard, Amex", icon: CreditCard },
-  { key: "pix" as const, label: "PIX", sublabel: "Instant transfer", icon: Smartphone },
-  { key: "bank_transfer" as const, label: "Bank Transfer", sublabel: "TED / DOC", icon: Building },
+  { key: "credit_card" as const, label: "Cartão de Crédito", sublabel: "Visa, Mastercard, Amex", icon: CreditCard },
+  { key: "pix" as const, label: "PIX", sublabel: "Transferência instantânea", icon: Smartphone },
+  { key: "bank_transfer" as const, label: "Transferência", sublabel: "TED / DOC", icon: Building },
 ];
 
 export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
@@ -22,21 +22,21 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Payment setup</h2>
+      <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Forma de pagamento</h2>
       <p className="text-[#666666] mb-6">
-        You won&apos;t be charged during your 14-day trial.
+        Você não será cobrado durante os 14 dias de teste.
       </p>
 
       <div className="bg-[#E8F5E9] rounded-lg p-4 mb-6 flex items-center justify-between">
         <div>
           <p className="font-semibold text-[#1A1A2E]">{plan.name}</p>
-          <p className="text-sm text-[#666666]">14-day free trial, then {plan.price} {plan.period}</p>
+          <p className="text-sm text-[#666666]">14 dias grátis, depois {plan.price} {plan.period}</p>
         </div>
         <span className="text-2xl font-extrabold text-[#2D6A2B]">{plan.price}</span>
       </div>
 
       <div className="mb-6">
-        <label className="block text-sm font-medium text-[#333333] mb-3">Payment method</label>
+        <label className="block text-sm font-medium text-[#333333] mb-3">Método de pagamento preferido</label>
         <div className="grid grid-cols-3 gap-3">
           {paymentMethods.map((method) => {
             const selected = data.paymentMethod === method.key;
@@ -65,7 +65,7 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
       {data.paymentMethod === "credit_card" && (
         <div className="space-y-4 border-t border-gray-100 pt-6">
           <div>
-            <label className="block text-sm font-medium text-[#333333] mb-1.5">Card number</label>
+            <label className="block text-sm font-medium text-[#333333] mb-1.5">Número do cartão</label>
             <div className="relative">
               <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
@@ -86,7 +86,7 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#333333] mb-1.5">Name on card</label>
+            <label className="block text-sm font-medium text-[#333333] mb-1.5">Nome no cartão</label>
             <input
               type="text"
               placeholder="JOAO DA SILVA"
@@ -101,10 +101,10 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#333333] mb-1.5">Expiry</label>
+              <label className="block text-sm font-medium text-[#333333] mb-1.5">Validade</label>
               <input
                 type="text"
-                placeholder="MM/YY"
+                placeholder="MM/AA"
                 value={data.cardExpiry || ""}
                 onChange={(e) => {
                   let val = e.target.value.replace(/\D/g, "").substring(0, 4);
@@ -139,10 +139,10 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
           <div className="bg-gray-50 rounded-lg p-6 text-center">
             <Smartphone className="w-10 h-10 text-[#2D6A2B] mx-auto mb-3" />
             <p className="text-sm text-[#333333] font-medium mb-1">
-              PIX payment will be generated after confirmation
+              Os dados do PIX serão enviados após a confirmação
             </p>
             <p className="text-xs text-[#666666]">
-              You&apos;ll receive a QR code and copy-paste key to complete the payment.
+              Você receberá um QR code e chave PIX para completar o pagamento.
             </p>
           </div>
         </div>
@@ -153,10 +153,10 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
           <div className="bg-gray-50 rounded-lg p-6 text-center">
             <Building className="w-10 h-10 text-[#2D6A2B] mx-auto mb-3" />
             <p className="text-sm text-[#333333] font-medium mb-1">
-              Bank details will be provided after confirmation
+              Os dados bancários serão fornecidos após a confirmação
             </p>
             <p className="text-xs text-[#666666]">
-              Transfer via TED or DOC. Your trial starts immediately.
+              Transferência via TED ou DOC. Seu período de teste começa imediatamente.
             </p>
           </div>
         </div>
@@ -167,7 +167,7 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
           <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
           <path d="M7 11V7a5 5 0 0 1 10 0v4" />
         </svg>
-        <span>Your payment data is encrypted and secure. We never store card details.</span>
+        <span>Seus dados de pagamento são criptografados e seguros. Nunca armazenamos dados do cartão.</span>
       </div>
     </div>
   );

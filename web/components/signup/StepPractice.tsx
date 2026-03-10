@@ -31,19 +31,19 @@ export function StepPractice({ data, onChange, errors }: StepPracticeProps) {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Set up your practice</h2>
+      <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Configure sua assessoria</h2>
       <p className="text-[#666666] mb-6">
-        This is how your athletes will see your coaching business.
+        É assim que seus atletas verão sua assessoria de corrida.
       </p>
 
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-[#333333] mb-1.5">Practice name</label>
+          <label className="block text-sm font-medium text-[#333333] mb-1.5">Nome da assessoria</label>
           <div className="relative">
             <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
               type="text"
-              placeholder="e.g. Silva Running Coaching"
+              placeholder="ex: Silva Running Coaching"
               value={data.practiceName}
               onChange={(e) => onChange({ practiceName: e.target.value })}
               className={`w-full pl-11 pr-4 py-3 rounded-lg border ${
@@ -55,7 +55,7 @@ export function StepPractice({ data, onChange, errors }: StepPracticeProps) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-[#333333] mb-1.5">Subdomain</label>
+          <label className="block text-sm font-medium text-[#333333] mb-1.5">Subdomínio</label>
           <div className="relative">
             <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
@@ -72,16 +72,16 @@ export function StepPractice({ data, onChange, errors }: StepPracticeProps) {
           </div>
           <div className="mt-1.5 flex items-center gap-2">
             <span className="text-sm text-[#666666]">
-              lyferun.com/<span className="font-medium text-[#2D6A2B]">{data.subdomain || "your-name"}</span>
+              lyferun.com/<span className="font-medium text-[#2D6A2B]">{data.subdomain || "seu-nome"}</span>
             </span>
             {subdomainStatus === "checking" && (
               <Loader2 className="w-4 h-4 text-gray-400 animate-spin" />
             )}
             {subdomainStatus === "available" && (
-              <span className="text-xs text-[#4CAF50] font-medium">Available!</span>
+              <span className="text-xs text-[#4CAF50] font-medium">Disponível!</span>
             )}
             {subdomainStatus === "taken" && (
-              <span className="text-xs text-red-500 font-medium">Already taken</span>
+              <span className="text-xs text-red-500 font-medium">Já está em uso</span>
             )}
           </div>
           {errors.subdomain && <p className="mt-1 text-sm text-red-500">{errors.subdomain}</p>}
@@ -96,18 +96,18 @@ export function StepPractice({ data, onChange, errors }: StepPracticeProps) {
               </span>
             </div>
             <p className="text-sm text-[#666666]">
-              Click to upload your logo <span className="text-gray-400">(optional)</span>
+              Clique para enviar seu logo <span className="text-gray-400">(opcional)</span>
             </p>
-            <p className="text-xs text-gray-400 mt-1">PNG, JPG up to 2MB</p>
+            <p className="text-xs text-gray-400 mt-1">PNG, JPG até 2MB</p>
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-[#333333] mb-1.5">Bio / About</label>
+          <label className="block text-sm font-medium text-[#333333] mb-1.5">Bio / Sobre</label>
           <div className="relative">
             <FileText className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
             <textarea
-              placeholder="Tell your athletes about your coaching philosophy, experience, certifications..."
+              placeholder="Conte aos seus atletas sobre sua filosofia de treino, experiência, certificações..."
               value={data.bio}
               onChange={(e) => onChange({ bio: e.target.value })}
               rows={4}
