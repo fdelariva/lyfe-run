@@ -6,11 +6,11 @@ const legalLinks = ["Privacy Policy", "Terms of Service", "LGPD"];
 
 export function Footer() {
   return (
-    <footer className="bg-[#1A1A2E] pt-16 pb-8">
+    <footer className="bg-[#264653] pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-2 md:col-span-1">
-            <h3 className="text-2xl font-extrabold text-[#2D6A2B] mb-3">
+            <h3 className="text-2xl font-extrabold text-[#e76f51] mb-3">
               Lyfe Run
             </h3>
             <p className="text-white/50 text-sm leading-relaxed">

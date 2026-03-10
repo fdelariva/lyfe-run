@@ -36,7 +36,7 @@ export function Testimonials() {
     <section className="py-20 bg-[#F5F5F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1A1A2E] mb-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#264653] mb-4">
             Coaches love Lyfe Run
           </h2>
         </div>
@@ -58,7 +58,7 @@ export function Testimonials() {
                     {t.initials}
                   </div>
                   <div>
-                    <p className="font-semibold text-[#1A1A2E]">{t.name}</p>
+                    <p className="font-semibold text-[#264653]">{t.name}</p>
                     <p className="text-sm text-[#666666]">{t.role}</p>
                   </div>
                 </div>

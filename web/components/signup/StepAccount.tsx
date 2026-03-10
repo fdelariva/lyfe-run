@@ -38,7 +38,7 @@ function InputField({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className={`w-full pl-11 pr-4 py-3 rounded-lg border ${
-            error ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-[#4CAF50]"
+            error ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-[#f4a261]"
           } focus:outline-none focus:ring-2 text-[#333333] placeholder:text-gray-400`}
         />
       </div>
@@ -50,7 +50,7 @@ function InputField({
 export function StepAccount({ data, onChange, errors }: StepAccountProps) {
   return (
     <div>
-      <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Crie sua conta</h2>
+      <h2 className="text-2xl font-bold text-[#264653] mb-2">Crie sua conta</h2>
       <p className="text-[#666666] mb-6">Vamos configurar seu perfil de treinador no Lyfe Run.</p>
 
       <div className="space-y-4">

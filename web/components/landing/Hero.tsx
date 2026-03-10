@@ -30,7 +30,7 @@ function DashboardMockup() {
           <div className="space-y-2">
             {["Ana Silva — 10K", "Carlos Rocha — Marathon", "Bia Costa — Half"].map((name) => (
               <div key={name} className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-[#4CAF50]/40 flex items-center justify-center text-[10px] text-white font-bold">
+                <div className="w-6 h-6 rounded-full bg-[#f4a261]/40 flex items-center justify-center text-[10px] text-white font-bold">
                   {name[0]}
                 </div>
                 <span className="text-white/80 text-xs">{name}</span>
@@ -49,7 +49,7 @@ function DashboardMockup() {
                   className={`h-6 rounded text-[9px] flex items-center justify-center mt-1 ${
                     d === "Sun"
                       ? "bg-white/5 text-white/30"
-                      : "bg-[#4CAF50]/30 text-white/80"
+                      : "bg-[#f4a261]/30 text-white/80"
                   }`}
                 >
                   {d === "Sun" ? "Rest" : d === "Sat" ? "Long" : "Run"}
@@ -66,7 +66,7 @@ function DashboardMockup() {
             { label: "Compliance", value: "94%" },
           ].map((m) => (
             <div key={m.label} className="bg-white/10 rounded-lg p-2 text-center">
-              <p className="text-[#4CAF50] text-sm font-bold">{m.value}</p>
+              <p className="text-[#f4a261] text-sm font-bold">{m.value}</p>
               <p className="text-white/50 text-[9px]">{m.label}</p>
             </div>
           ))}
@@ -78,11 +78,11 @@ function DashboardMockup() {
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center bg-[#1A1A2E] overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#2D6A2B]/20 via-transparent to-[#4CAF50]/10" />
+    <section className="relative min-h-screen flex items-center bg-[#264653] overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#e76f51]/20 via-transparent to-[#f4a261]/10" />
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#2D6A2B]/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#4CAF50]/10 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#e76f51]/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#f4a261]/10 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
@@ -102,7 +102,7 @@ export function Hero() {
               className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6"
             >
               Your entire coaching business.{" "}
-              <span className="text-[#4CAF50]">One platform.</span>
+              <span className="text-[#f4a261]">One platform.</span>
             </motion.h1>
 
             <motion.p
@@ -142,7 +142,7 @@ export function Hero() {
                 {["R", "F", "B", "M"].map((initial, i) => (
                   <div
                     key={i}
-                    className="w-9 h-9 rounded-full bg-[#4CAF50] border-2 border-[#1A1A2E] flex items-center justify-center text-white text-xs font-bold"
+                    className="w-9 h-9 rounded-full bg-[#f4a261] border-2 border-[#264653] flex items-center justify-center text-white text-xs font-bold"
                   >
                     {initial}
                   </div>

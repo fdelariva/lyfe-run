@@ -25,7 +25,7 @@ export function AccordionItem({
   return (
     <AccordionPrimitive.Item value={value} className="border-b border-gray-200">
       <AccordionPrimitive.Header>
-        <AccordionPrimitive.Trigger className="flex w-full items-center justify-between py-5 text-left text-lg font-semibold text-[#1A1A2E] hover:text-[#2D6A2B] transition-colors group">
+        <AccordionPrimitive.Trigger className="flex w-full items-center justify-between py-5 text-left text-lg font-semibold text-[#264653] hover:text-[#e76f51] transition-colors group">
           {question}
           <ChevronDown className="h-5 w-5 text-[#666666] transition-transform duration-200 group-data-[state=open]:rotate-180" />
         </AccordionPrimitive.Trigger>

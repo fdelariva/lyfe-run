@@ -32,7 +32,7 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <a href="#" className="text-2xl font-extrabold text-[#2D6A2B]">
+          <a href="#" className="text-2xl font-extrabold text-[#e76f51]">
             Lyfe Run
           </a>
 
@@ -44,7 +44,7 @@ export function Navbar() {
                 className={cn(
                   "text-sm font-medium transition-colors",
                   scrolled
-                    ? "text-[#333333] hover:text-[#2D6A2B]"
+                    ? "text-[#333333] hover:text-[#e76f51]"
                     : "text-white/90 hover:text-white"
                 )}
               >
@@ -77,7 +77,7 @@ export function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="block text-[#333333] font-medium py-2 hover:text-[#2D6A2B]"
+                className="block text-[#333333] font-medium py-2 hover:text-[#e76f51]"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}

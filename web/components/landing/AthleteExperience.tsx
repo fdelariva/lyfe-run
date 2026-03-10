@@ -15,9 +15,9 @@ const features = [
 function PhoneMockup() {
   return (
     <div className="w-72 mx-auto">
-      <div className="bg-[#1A1A2E] rounded-[2.5rem] p-3 shadow-2xl">
+      <div className="bg-[#264653] rounded-[2.5rem] p-3 shadow-2xl">
         <div className="bg-white rounded-[2rem] overflow-hidden">
-          <div className="bg-[#2D6A2B] px-5 pt-10 pb-4">
+          <div className="bg-[#e76f51] px-5 pt-10 pb-4">
             <p className="text-white/70 text-xs">Monday, March 10</p>
             <h3 className="text-white text-lg font-bold">Today&apos;s Run</h3>
           </div>
@@ -29,13 +29,13 @@ function PhoneMockup() {
                 { label: "HR Zone", value: "Z2-Z3" },
               ].map((m) => (
                 <div key={m.label} className="text-center">
-                  <p className="text-[#2D6A2B] text-base font-bold">{m.value}</p>
+                  <p className="text-[#e76f51] text-base font-bold">{m.value}</p>
                   <p className="text-[#666666] text-[10px]">{m.label}</p>
                 </div>
               ))}
             </div>
 
-            <div className="bg-[#E8F5E9] rounded-xl p-3">
+            <div className="bg-[#fdf2e9] rounded-xl p-3">
               <p className="text-[10px] text-[#666666] mb-1">WORKOUT</p>
               <div className="space-y-1.5">
                 {[
@@ -46,7 +46,7 @@ function PhoneMockup() {
                 ].map((s) => (
                   <div key={s.seg} className="flex justify-between text-xs">
                     <span className="text-[#333333] font-medium">{s.seg}</span>
-                    <span className="text-[#2D6A2B]">{s.val}</span>
+                    <span className="text-[#e76f51]">{s.val}</span>
                   </div>
                 ))}
               </div>
@@ -54,14 +54,14 @@ function PhoneMockup() {
 
             <div className="bg-gray-100 rounded-xl h-24 flex items-center justify-center">
               <div className="text-center">
-                <div className="w-8 h-8 mx-auto mb-1 rounded-full bg-[#4CAF50]/20 flex items-center justify-center">
-                  <div className="w-3 h-3 rounded-full bg-[#4CAF50]" />
+                <div className="w-8 h-8 mx-auto mb-1 rounded-full bg-[#f4a261]/20 flex items-center justify-center">
+                  <div className="w-3 h-3 rounded-full bg-[#f4a261]" />
                 </div>
                 <p className="text-[10px] text-[#666666]">Route Map</p>
               </div>
             </div>
 
-            <button className="w-full bg-[#4CAF50] text-white text-sm font-semibold py-3 rounded-xl">
+            <button className="w-full bg-[#f4a261] text-white text-sm font-semibold py-3 rounded-xl">
               Start Run
             </button>
           </div>
@@ -82,15 +82,15 @@ export function AthleteExperience() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1A1A2E] mb-6">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#264653] mb-6">
               Everything your athletes need.{" "}
-              <span className="text-[#4CAF50]">Right in their pocket.</span>
+              <span className="text-[#f4a261]">Right in their pocket.</span>
             </h2>
             <div className="space-y-4">
               {features.map((feature) => (
                 <div key={feature} className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-[#E8F5E9] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Check className="w-3.5 h-3.5 text-[#2D6A2B]" />
+                  <div className="w-6 h-6 bg-[#fdf2e9] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check className="w-3.5 h-3.5 text-[#e76f51]" />
                   </div>
                   <p className="text-[#333333] leading-relaxed">{feature}</p>
                 </div>

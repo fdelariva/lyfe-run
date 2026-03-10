@@ -24,7 +24,7 @@ export default function SignupPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#2D6A2B]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#e76f51]" />
       </div>
     }>
       <SignupFlow />
@@ -128,7 +128,7 @@ function SignupFlow() {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
-          <a href="/" className="text-xl font-extrabold text-[#2D6A2B]">
+          <a href="/" className="text-xl font-extrabold text-[#e76f51]">
             Lyfe Run
           </a>
           {!isSuccess && (
@@ -186,7 +186,7 @@ function SignupFlow() {
               <button
                 onClick={handleNext}
                 disabled={loading}
-                className="flex items-center gap-2 bg-[#2D6A2B] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#1A1A2E] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 bg-[#e76f51] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#264653] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>

@@ -31,7 +31,7 @@ export function StepPractice({ data, onChange, errors }: StepPracticeProps) {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Configure sua assessoria</h2>
+      <h2 className="text-2xl font-bold text-[#264653] mb-2">Configure sua assessoria</h2>
       <p className="text-[#666666] mb-6">
         É assim que seus atletas verão sua assessoria de corrida.
       </p>
@@ -48,7 +48,7 @@ export function StepPractice({ data, onChange, errors }: StepPracticeProps) {
               onChange={(e) => onChange({ practiceName: e.target.value })}
               className={`w-full pl-11 pr-4 py-3 rounded-lg border ${
                 errors.practiceName ? "border-red-400" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-[#4CAF50] text-[#333333] placeholder:text-gray-400`}
+              } focus:outline-none focus:ring-2 focus:ring-[#f4a261] text-[#333333] placeholder:text-gray-400`}
             />
           </div>
           {errors.practiceName && <p className="mt-1 text-sm text-red-500">{errors.practiceName}</p>}
@@ -67,18 +67,18 @@ export function StepPractice({ data, onChange, errors }: StepPracticeProps) {
               }
               className={`w-full pl-11 pr-4 py-3 rounded-lg border ${
                 errors.subdomain ? "border-red-400" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-[#4CAF50] text-[#333333] placeholder:text-gray-400`}
+              } focus:outline-none focus:ring-2 focus:ring-[#f4a261] text-[#333333] placeholder:text-gray-400`}
             />
           </div>
           <div className="mt-1.5 flex items-center gap-2">
             <span className="text-sm text-[#666666]">
-              lyferun.com/<span className="font-medium text-[#2D6A2B]">{data.subdomain || "seu-nome"}</span>
+              lyferun.com/<span className="font-medium text-[#e76f51]">{data.subdomain || "seu-nome"}</span>
             </span>
             {subdomainStatus === "checking" && (
               <Loader2 className="w-4 h-4 text-gray-400 animate-spin" />
             )}
             {subdomainStatus === "available" && (
-              <span className="text-xs text-[#4CAF50] font-medium">Disponível!</span>
+              <span className="text-xs text-[#f4a261] font-medium">Disponível!</span>
             )}
             {subdomainStatus === "taken" && (
               <span className="text-xs text-red-500 font-medium">Já está em uso</span>
@@ -89,9 +89,9 @@ export function StepPractice({ data, onChange, errors }: StepPracticeProps) {
 
         <div>
           <label className="block text-sm font-medium text-[#333333] mb-1.5">Logo</label>
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#4CAF50] transition-colors cursor-pointer">
-            <div className="w-16 h-16 bg-[#E8F5E9] rounded-full flex items-center justify-center mx-auto mb-3">
-              <span className="text-2xl font-bold text-[#2D6A2B]">
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#f4a261] transition-colors cursor-pointer">
+            <div className="w-16 h-16 bg-[#fdf2e9] rounded-full flex items-center justify-center mx-auto mb-3">
+              <span className="text-2xl font-bold text-[#e76f51]">
                 {data.practiceName ? data.practiceName[0].toUpperCase() : "L"}
               </span>
             </div>
@@ -111,7 +111,7 @@ export function StepPractice({ data, onChange, errors }: StepPracticeProps) {
               value={data.bio}
               onChange={(e) => onChange({ bio: e.target.value })}
               rows={4}
-              className="w-full pl-11 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4CAF50] text-[#333333] placeholder:text-gray-400 resize-none"
+              className="w-full pl-11 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f4a261] text-[#333333] placeholder:text-gray-400 resize-none"
             />
           </div>
         </div>

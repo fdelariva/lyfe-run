@@ -25,8 +25,8 @@ export function StepIndicator({ currentStep, totalSteps, labels }: StepIndicator
                 <div
                   className={cn(
                     "w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300",
-                    isComplete && "bg-[#4CAF50] text-white",
-                    isCurrent && "bg-[#2D6A2B] text-white ring-4 ring-[#2D6A2B]/20",
+                    isComplete && "bg-[#f4a261] text-white",
+                    isCurrent && "bg-[#e76f51] text-white ring-4 ring-[#e76f51]/20",
                     !isComplete && !isCurrent && "bg-gray-200 text-gray-500"
                   )}
                 >
@@ -35,7 +35,7 @@ export function StepIndicator({ currentStep, totalSteps, labels }: StepIndicator
                 <span
                   className={cn(
                     "text-xs font-medium hidden sm:block",
-                    isCurrent ? "text-[#2D6A2B]" : isComplete ? "text-[#4CAF50]" : "text-gray-400"
+                    isCurrent ? "text-[#e76f51]" : isComplete ? "text-[#f4a261]" : "text-gray-400"
                   )}
                 >
                   {labels[i]}
@@ -45,7 +45,7 @@ export function StepIndicator({ currentStep, totalSteps, labels }: StepIndicator
                 <div
                   className={cn(
                     "flex-1 h-0.5 mx-2 transition-all duration-300",
-                    step < currentStep ? "bg-[#4CAF50]" : "bg-gray-200"
+                    step < currentStep ? "bg-[#f4a261]" : "bg-gray-200"
                   )}
                 />
               )}

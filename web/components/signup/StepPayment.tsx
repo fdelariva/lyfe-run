@@ -22,17 +22,17 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Forma de pagamento</h2>
+      <h2 className="text-2xl font-bold text-[#264653] mb-2">Forma de pagamento</h2>
       <p className="text-[#666666] mb-6">
         Você não será cobrado durante os 14 dias de teste.
       </p>
 
-      <div className="bg-[#E8F5E9] rounded-lg p-4 mb-6 flex items-center justify-between">
+      <div className="bg-[#fdf2e9] rounded-lg p-4 mb-6 flex items-center justify-between">
         <div>
-          <p className="font-semibold text-[#1A1A2E]">{plan.name}</p>
+          <p className="font-semibold text-[#264653]">{plan.name}</p>
           <p className="text-sm text-[#666666]">14 dias grátis, depois {plan.price} {plan.period}</p>
         </div>
-        <span className="text-2xl font-extrabold text-[#2D6A2B]">{plan.price}</span>
+        <span className="text-2xl font-extrabold text-[#e76f51]">{plan.price}</span>
       </div>
 
       <div className="mb-6">
@@ -47,12 +47,12 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
                 className={cn(
                   "flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all",
                   selected
-                    ? "border-[#4CAF50] bg-[#E8F5E9]/50"
+                    ? "border-[#f4a261] bg-[#fdf2e9]/50"
                     : "border-gray-200 hover:border-gray-300"
                 )}
               >
-                <method.icon className={cn("w-6 h-6", selected ? "text-[#2D6A2B]" : "text-gray-400")} />
-                <span className={cn("text-sm font-medium", selected ? "text-[#1A1A2E]" : "text-gray-500")}>
+                <method.icon className={cn("w-6 h-6", selected ? "text-[#e76f51]" : "text-gray-400")} />
+                <span className={cn("text-sm font-medium", selected ? "text-[#264653]" : "text-gray-500")}>
                   {method.label}
                 </span>
                 <span className="text-[10px] text-gray-400">{method.sublabel}</span>
@@ -79,7 +79,7 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
                 }}
                 className={`w-full pl-11 pr-4 py-3 rounded-lg border ${
                   errors.cardNumber ? "border-red-400" : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-[#4CAF50] text-[#333333] placeholder:text-gray-400`}
+                } focus:outline-none focus:ring-2 focus:ring-[#f4a261] text-[#333333] placeholder:text-gray-400`}
               />
             </div>
             {errors.cardNumber && <p className="mt-1 text-sm text-red-500">{errors.cardNumber}</p>}
@@ -94,7 +94,7 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
               onChange={(e) => onChange({ cardName: e.target.value.toUpperCase() })}
               className={`w-full px-4 py-3 rounded-lg border ${
                 errors.cardName ? "border-red-400" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-[#4CAF50] text-[#333333] placeholder:text-gray-400`}
+              } focus:outline-none focus:ring-2 focus:ring-[#f4a261] text-[#333333] placeholder:text-gray-400`}
             />
             {errors.cardName && <p className="mt-1 text-sm text-red-500">{errors.cardName}</p>}
           </div>
@@ -113,7 +113,7 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
                 }}
                 className={`w-full px-4 py-3 rounded-lg border ${
                   errors.cardExpiry ? "border-red-400" : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-[#4CAF50] text-[#333333] placeholder:text-gray-400`}
+                } focus:outline-none focus:ring-2 focus:ring-[#f4a261] text-[#333333] placeholder:text-gray-400`}
               />
               {errors.cardExpiry && <p className="mt-1 text-sm text-red-500">{errors.cardExpiry}</p>}
             </div>
@@ -126,7 +126,7 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
                 onChange={(e) => onChange({ cardCvv: e.target.value.replace(/\D/g, "").substring(0, 4) })}
                 className={`w-full px-4 py-3 rounded-lg border ${
                   errors.cardCvv ? "border-red-400" : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-[#4CAF50] text-[#333333] placeholder:text-gray-400`}
+                } focus:outline-none focus:ring-2 focus:ring-[#f4a261] text-[#333333] placeholder:text-gray-400`}
               />
               {errors.cardCvv && <p className="mt-1 text-sm text-red-500">{errors.cardCvv}</p>}
             </div>
@@ -137,7 +137,7 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
       {data.paymentMethod === "pix" && (
         <div className="border-t border-gray-100 pt-6">
           <div className="bg-gray-50 rounded-lg p-6 text-center">
-            <Smartphone className="w-10 h-10 text-[#2D6A2B] mx-auto mb-3" />
+            <Smartphone className="w-10 h-10 text-[#e76f51] mx-auto mb-3" />
             <p className="text-sm text-[#333333] font-medium mb-1">
               Os dados do PIX serão enviados após a confirmação
             </p>
@@ -151,7 +151,7 @@ export function StepPayment({ data, onChange, errors }: StepPaymentProps) {
       {data.paymentMethod === "bank_transfer" && (
         <div className="border-t border-gray-100 pt-6">
           <div className="bg-gray-50 rounded-lg p-6 text-center">
-            <Building className="w-10 h-10 text-[#2D6A2B] mx-auto mb-3" />
+            <Building className="w-10 h-10 text-[#e76f51] mx-auto mb-3" />
             <p className="text-sm text-[#333333] font-medium mb-1">
               Os dados bancários serão fornecidos após a confirmação
             </p>

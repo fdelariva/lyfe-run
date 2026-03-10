@@ -21,7 +21,7 @@ export function StepSuccess({ data, coachId }: StepSuccessProps) {
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 200, damping: 15 }}
       >
-        <CheckCircle className="w-20 h-20 text-[#4CAF50] mx-auto mb-6" />
+        <CheckCircle className="w-20 h-20 text-[#f4a261] mx-auto mb-6" />
       </motion.div>
 
       <motion.div
@@ -29,7 +29,7 @@ export function StepSuccess({ data, coachId }: StepSuccessProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <h2 className="text-3xl font-extrabold text-[#1A1A2E] mb-2">
+        <h2 className="text-3xl font-extrabold text-[#264653] mb-2">
           Cadastro realizado com sucesso!
         </h2>
         <p className="text-[#666666] text-lg mb-4">
@@ -41,11 +41,11 @@ export function StepSuccess({ data, coachId }: StepSuccessProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-[#E8F5E9] rounded-xl p-6 mb-6 max-w-md mx-auto"
+        className="bg-[#fdf2e9] rounded-xl p-6 mb-6 max-w-md mx-auto"
       >
         <div className="flex items-center justify-center gap-3 mb-4">
-          <Headphones className="w-8 h-8 text-[#2D6A2B]" />
-          <h3 className="font-bold text-[#1A1A2E] text-lg">Próximos passos</h3>
+          <Headphones className="w-8 h-8 text-[#e76f51]" />
+          <h3 className="font-bold text-[#264653] text-lg">Próximos passos</h3>
         </div>
         <p className="text-[#333333] leading-relaxed">
           Um especialista da nossa equipe entrará em contato em breve para finalizar a configuração da sua conta e acertar os detalhes de pagamento e faturamento.
@@ -58,7 +58,7 @@ export function StepSuccess({ data, coachId }: StepSuccessProps) {
         transition={{ delay: 0.7 }}
         className="bg-gray-50 rounded-xl p-6 mb-8 max-w-md mx-auto text-left"
       >
-        <h3 className="font-bold text-[#1A1A2E] mb-3">Seus dados</h3>
+        <h3 className="font-bold text-[#264653] mb-3">Seus dados</h3>
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-[#666666]">Assessoria</span>
@@ -66,7 +66,7 @@ export function StepSuccess({ data, coachId }: StepSuccessProps) {
           </div>
           <div className="flex justify-between">
             <span className="text-[#666666]">Sua página</span>
-            <span className="font-medium text-[#2D6A2B] flex items-center gap-1">
+            <span className="font-medium text-[#e76f51] flex items-center gap-1">
               lyferun.com/{data.subdomain}
               <ExternalLink className="w-3 h-3" />
             </span>
@@ -96,7 +96,7 @@ export function StepSuccess({ data, coachId }: StepSuccessProps) {
         transition={{ delay: 0.9 }}
         className="max-w-sm mx-auto"
       >
-        <Button variant="ghost" size="md" href="/" className="w-full text-[#2D6A2B] border-[#2D6A2B] hover:bg-[#2D6A2B] hover:text-white">
+        <Button variant="ghost" size="md" href="/" className="w-full text-[#e76f51] border-[#e76f51] hover:bg-[#e76f51] hover:text-white">
           Voltar para a página inicial
         </Button>
       </motion.div>

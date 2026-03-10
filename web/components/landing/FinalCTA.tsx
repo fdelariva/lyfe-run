@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export function FinalCTA() {
   return (
-    <section className="py-20 bg-gradient-to-br from-[#2D6A2B] to-[#1A1A2E]">
+    <section className="py-20 bg-gradient-to-br from-[#e76f51] to-[#264653]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -25,9 +25,9 @@ export function FinalCTA() {
             <input
               type="email"
               placeholder="your@email.com"
-              className="flex-1 px-5 py-3 rounded-lg text-[#333333] bg-white focus:outline-none focus:ring-2 focus:ring-[#4CAF50]"
+              className="flex-1 px-5 py-3 rounded-lg text-[#333333] bg-white focus:outline-none focus:ring-2 focus:ring-[#f4a261]"
             />
-            <button className="px-6 py-3 bg-[#4CAF50] text-white font-semibold rounded-lg hover:bg-[#2D6A2B] transition-colors shadow-lg">
+            <button className="px-6 py-3 bg-[#f4a261] text-white font-semibold rounded-lg hover:bg-[#e76f51] transition-colors shadow-lg">
               Get Early Access
             </button>
           </div>

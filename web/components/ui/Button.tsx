@@ -21,12 +21,12 @@ export function Button({
     "inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 cursor-pointer";
 
   const variants = {
-    primary: "bg-[#4CAF50] text-white hover:bg-[#2D6A2B] shadow-lg hover:shadow-xl",
-    secondary: "bg-[#2D6A2B] text-white hover:bg-[#1A1A2E]",
+    primary: "bg-[#f4a261] text-white hover:bg-[#e76f51] shadow-lg hover:shadow-xl",
+    secondary: "bg-[#e76f51] text-white hover:bg-[#264653]",
     ghost:
       "border-2 border-white text-white hover:bg-white/10 backdrop-blur-sm",
     outline:
-      "border-2 border-white text-white hover:bg-white hover:text-[#1A1A2E]",
+      "border-2 border-white text-white hover:bg-white hover:text-[#264653]",
   };
 
   const sizes = {

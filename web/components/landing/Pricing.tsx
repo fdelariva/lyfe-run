@@ -46,7 +46,7 @@ const plans = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="py-20 bg-[#1A1A2E]">
+    <section id="pricing" className="py-20 bg-[#264653]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
@@ -68,7 +68,7 @@ export function Pricing() {
               whileHover={{ scale: 1.02 }}
               className={`relative bg-white rounded-2xl p-8 ${
                 plan.highlighted
-                  ? "border-2 border-[#4CAF50] shadow-2xl shadow-[#4CAF50]/20"
+                  ? "border-2 border-[#f4a261] shadow-2xl shadow-[#f4a261]/20"
                   : "border border-gray-200"
               }`}
             >
@@ -78,17 +78,17 @@ export function Pricing() {
                 </div>
               )}
 
-              <h3 className="text-xl font-bold text-[#1A1A2E] mb-2">
+              <h3 className="text-xl font-bold text-[#264653] mb-2">
                 {plan.name}
               </h3>
               <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-extrabold text-[#1A1A2E]">
+                <span className="text-4xl font-extrabold text-[#264653]">
                   {plan.price}
                 </span>
                 <span className="text-[#666666]">{plan.period}</span>
               </div>
               {plan.sublabel && (
-                <p className="text-sm text-[#4CAF50] font-medium mb-6">
+                <p className="text-sm text-[#f4a261] font-medium mb-6">
                   {plan.sublabel}
                 </p>
               )}
@@ -97,7 +97,7 @@ export function Pricing() {
               <ul className="space-y-3 mb-8">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#4CAF50] flex-shrink-0 mt-0.5" />
+                    <Check className="w-5 h-5 text-[#f4a261] flex-shrink-0 mt-0.5" />
                     <span className="text-[#333333] text-sm">{feature}</span>
                   </li>
                 ))}
@@ -110,7 +110,7 @@ export function Pricing() {
               ) : (
                 <a
                   href="/signup?plan=basic"
-                  className="block w-full py-3 px-6 rounded-lg border-2 border-[#2D6A2B] text-[#2D6A2B] font-semibold hover:bg-[#2D6A2B] hover:text-white transition-all duration-200 text-center"
+                  className="block w-full py-3 px-6 rounded-lg border-2 border-[#e76f51] text-[#e76f51] font-semibold hover:bg-[#e76f51] hover:text-white transition-all duration-200 text-center"
                 >
                   {plan.cta}
                 </a>
