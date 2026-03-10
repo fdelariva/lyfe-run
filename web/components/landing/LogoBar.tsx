@@ -10,7 +10,7 @@ export function LogoBar() {
     <section className="bg-[#F9F9F9] py-10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-center text-sm text-[#666666] font-medium mb-6">
-          Integrates with the tools your athletes already use
+          Integra com as ferramentas que seus atletas já usam
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           {integrations.map((name, i) => (

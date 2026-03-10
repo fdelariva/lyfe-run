@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 
 const features = [
-  "Receive weekly plans directly on Garmin or Apple Watch",
-  "GPS run recording when no device is available",
-  "Real-time pace, HR zones, and distance tracking",
-  "Post-run analysis: planned vs. actual performance",
-  "Race calendar with ticket purchasing and goal pace prediction",
+  "Receba planilhas semanais direto no Garmin ou Apple Watch",
+  "Gravação de corrida por GPS quando não houver dispositivo",
+  "Pace, zonas de FC e distância em tempo real",
+  "Análise pós-treino: planejado vs. realizado",
+  "Calendário de provas com compra de inscrição e previsão de pace",
 ];
 
 function PhoneMockup() {
@@ -18,15 +18,15 @@ function PhoneMockup() {
       <div className="bg-[#264653] rounded-[2.5rem] p-3 shadow-2xl">
         <div className="bg-white rounded-[2rem] overflow-hidden">
           <div className="bg-[#e76f51] px-5 pt-10 pb-4">
-            <p className="text-white/70 text-xs">Monday, March 10</p>
-            <h3 className="text-white text-lg font-bold">Today&apos;s Run</h3>
+            <p className="text-white/70 text-xs">Segunda, 10 de Março</p>
+            <h3 className="text-white text-lg font-bold">Treino de Hoje</h3>
           </div>
           <div className="px-5 py-4 space-y-4">
             <div className="grid grid-cols-3 gap-3">
               {[
-                { label: "Distance", value: "8.0 km" },
-                { label: "Target Pace", value: "5:30/km" },
-                { label: "HR Zone", value: "Z2-Z3" },
+                { label: "Distância", value: "8.0 km" },
+                { label: "Pace Alvo", value: "5:30/km" },
+                { label: "Zona FC", value: "Z2-Z3" },
               ].map((m) => (
                 <div key={m.label} className="text-center">
                   <p className="text-[#e76f51] text-base font-bold">{m.value}</p>
@@ -36,13 +36,13 @@ function PhoneMockup() {
             </div>
 
             <div className="bg-[#fdf2e9] rounded-xl p-3">
-              <p className="text-[10px] text-[#666666] mb-1">WORKOUT</p>
+              <p className="text-[10px] text-[#666666] mb-1">TREINO</p>
               <div className="space-y-1.5">
                 {[
-                  { seg: "Warm-up", val: "1km @ 6:00" },
-                  { seg: "Tempo", val: "5km @ 5:15" },
-                  { seg: "Easy", val: "1km @ 6:00" },
-                  { seg: "Cool-down", val: "1km @ 6:30" },
+                  { seg: "Aquecimento", val: "1km @ 6:00" },
+                  { seg: "Ritmo", val: "5km @ 5:15" },
+                  { seg: "Leve", val: "1km @ 6:00" },
+                  { seg: "Desaquecimento", val: "1km @ 6:30" },
                 ].map((s) => (
                   <div key={s.seg} className="flex justify-between text-xs">
                     <span className="text-[#333333] font-medium">{s.seg}</span>
@@ -57,12 +57,12 @@ function PhoneMockup() {
                 <div className="w-8 h-8 mx-auto mb-1 rounded-full bg-[#f4a261]/20 flex items-center justify-center">
                   <div className="w-3 h-3 rounded-full bg-[#f4a261]" />
                 </div>
-                <p className="text-[10px] text-[#666666]">Route Map</p>
+                <p className="text-[10px] text-[#666666]">Mapa do Percurso</p>
               </div>
             </div>
 
             <button className="w-full bg-[#f4a261] text-white text-sm font-semibold py-3 rounded-xl">
-              Start Run
+              Iniciar Corrida
             </button>
           </div>
         </div>
@@ -83,8 +83,8 @@ export function AthleteExperience() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#264653] mb-6">
-              Everything your athletes need.{" "}
-              <span className="text-[#f4a261]">Right in their pocket.</span>
+              Tudo que seus atletas precisam.{" "}
+              <span className="text-[#f4a261]">Na palma da mão.</span>
             </h2>
             <div className="space-y-4">
               {features.map((feature) => (

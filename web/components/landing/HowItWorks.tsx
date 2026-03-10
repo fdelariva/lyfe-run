@@ -6,26 +6,26 @@ import { motion } from "framer-motion";
 const steps = [
   {
     step: "1",
-    title: "Set up your practice",
-    description: "Logo, branding, subdomain, coach profile — ready in minutes.",
+    title: "Configure sua assessoria",
+    description: "Logo, marca, subdomínio, perfil do treinador — pronto em minutos.",
   },
   {
     step: "2",
-    title: "Invite your athletes",
+    title: "Convide seus atletas",
     description:
-      "They onboard, pay, and self-assess through your custom landing page.",
+      "Eles se cadastram, pagam e fazem auto-avaliação pela sua página personalizada.",
   },
   {
     step: "3",
-    title: "Deliver plans",
+    title: "Entregue planilhas",
     description:
-      "Build weekly plans or let AI generate them. Push to wearables automatically.",
+      "Monte planilhas semanais ou deixe a IA gerá-las. Envie para wearables automaticamente.",
   },
   {
     step: "4",
-    title: "Coach smarter",
+    title: "Treine de forma mais inteligente",
     description:
-      "Review AI-generated feedback, track compliance, watch fitness scores improve.",
+      "Revise feedbacks gerados por IA, acompanhe aderência e veja os índices de fitness melhorarem.",
   },
 ];
 
@@ -35,7 +35,7 @@ export function HowItWorks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#264653] mb-4">
-            From sign-up to first plan in under 10 minutes
+            Do cadastro à primeira planilha em menos de 10 minutos
           </h2>
         </div>
 

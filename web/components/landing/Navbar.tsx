@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "For Coaches", href: "#how-it-works" },
+  { label: "Funcionalidades", href: "#features" },
+  { label: "Preços", href: "#pricing" },
+  { label: "Para Treinadores", href: "#how-it-works" },
 ];
 
 export function Navbar() {
@@ -52,7 +52,7 @@ export function Navbar() {
               </a>
             ))}
             <Button variant="secondary" size="sm" href="#pricing">
-              Start Free Trial
+              Teste Grátis
             </Button>
           </div>
 
@@ -84,7 +84,7 @@ export function Navbar() {
               </a>
             ))}
             <Button variant="secondary" size="sm" href="#pricing" className="w-full">
-              Start Free Trial
+              Teste Grátis
             </Button>
           </div>
         </div>

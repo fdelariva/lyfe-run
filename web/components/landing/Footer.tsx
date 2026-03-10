@@ -1,8 +1,8 @@
 import React from "react";
 
-const productLinks = ["Features", "Pricing", "Wearables", "For Coaches"];
-const companyLinks = ["About", "Blog", "Careers", "Contact"];
-const legalLinks = ["Privacy Policy", "Terms of Service", "LGPD"];
+const productLinks = ["Funcionalidades", "Preços", "Wearables", "Para Treinadores"];
+const companyLinks = ["Sobre", "Blog", "Carreiras", "Contato"];
+const legalLinks = ["Política de Privacidade", "Termos de Uso", "LGPD"];
 
 export function Footer() {
   return (
@@ -14,12 +14,12 @@ export function Footer() {
               Lyfe Run
             </h3>
             <p className="text-white/50 text-sm leading-relaxed">
-              The coaching platform built for runners.
+              A plataforma de coaching feita para corredores.
             </p>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4">Product</h4>
+            <h4 className="text-white font-semibold mb-4">Produto</h4>
             <ul className="space-y-2">
               {productLinks.map((link) => (
                 <li key={link}>
@@ -32,7 +32,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4">Company</h4>
+            <h4 className="text-white font-semibold mb-4">Empresa</h4>
             <ul className="space-y-2">
               {companyLinks.map((link) => (
                 <li key={link}>
@@ -60,7 +60,7 @@ export function Footer() {
 
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/30 text-sm">
-            &copy; 2025 Lyfe Run. All rights reserved.
+            &copy; 2025 Lyfe Run. Todos os direitos reservados.
           </p>
           <div className="flex gap-4">
             {["Instagram", "LinkedIn", "Strava"].map((social) => (

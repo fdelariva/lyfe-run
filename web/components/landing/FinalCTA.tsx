@@ -14,26 +14,26 @@ export function FinalCTA() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
-            Ready to build your coaching business?
+            Pronto para construir sua assessoria?
           </h2>
           <p className="text-white/60 text-lg mb-8 max-w-xl mx-auto">
-            Join hundreds of coaches already using Lyfe Run to deliver better
-            training and spend less time on admin.
+            Junte-se a centenas de treinadores que já usam o Lyfe Run para
+            entregar treinos melhores e gastar menos tempo com administração.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto mb-4">
             <input
               type="email"
-              placeholder="your@email.com"
+              placeholder="seu@email.com"
               className="flex-1 px-5 py-3 rounded-lg text-[#333333] bg-white focus:outline-none focus:ring-2 focus:ring-[#f4a261]"
             />
             <button className="px-6 py-3 bg-[#f4a261] text-white font-semibold rounded-lg hover:bg-[#e76f51] transition-colors shadow-lg">
-              Get Early Access
+              Acesso Antecipado
             </button>
           </div>
 
           <p className="text-white/40 text-sm">
-            14-day free trial. No credit card required.
+            14 dias grátis. Sem necessidade de cartão de crédito.
           </p>
         </motion.div>
       </div>

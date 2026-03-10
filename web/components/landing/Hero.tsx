@@ -26,7 +26,7 @@ function DashboardMockup() {
 
       <div className="space-y-3">
         <div className="bg-white/10 rounded-lg p-3">
-          <p className="text-white/60 text-xs mb-2 font-medium">ATHLETES</p>
+          <p className="text-white/60 text-xs mb-2 font-medium">ATLETAS</p>
           <div className="space-y-2">
             {["Ana Silva — 10K", "Carlos Rocha — Marathon", "Bia Costa — Half"].map((name) => (
               <div key={name} className="flex items-center gap-2">
@@ -40,19 +40,19 @@ function DashboardMockup() {
         </div>
 
         <div className="bg-white/10 rounded-lg p-3">
-          <p className="text-white/60 text-xs mb-2 font-medium">WEEKLY PLAN — Ana Silva</p>
+          <p className="text-white/60 text-xs mb-2 font-medium">PLANILHA SEMANAL — Ana Silva</p>
           <div className="grid grid-cols-7 gap-1">
-            {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
+            {["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"].map((d) => (
               <div key={d} className="text-center">
                 <p className="text-white/40 text-[9px]">{d}</p>
                 <div
                   className={`h-6 rounded text-[9px] flex items-center justify-center mt-1 ${
-                    d === "Sun"
+                    d === "Dom"
                       ? "bg-white/5 text-white/30"
                       : "bg-[#f4a261]/30 text-white/80"
                   }`}
                 >
-                  {d === "Sun" ? "Rest" : d === "Sat" ? "Long" : "Run"}
+                  {d === "Dom" ? "Folga" : d === "Sáb" ? "Longo" : "Treino"}
                 </div>
               </div>
             ))}
@@ -62,8 +62,8 @@ function DashboardMockup() {
         <div className="grid grid-cols-3 gap-2">
           {[
             { label: "VO2 Max", value: "48.2" },
-            { label: "5K Pred", value: "22:30" },
-            { label: "Compliance", value: "94%" },
+            { label: "Pred 5K", value: "22:30" },
+            { label: "Aderência", value: "94%" },
           ].map((m) => (
             <div key={m.label} className="bg-white/10 rounded-lg p-2 text-center">
               <p className="text-[#f4a261] text-sm font-bold">{m.value}</p>
@@ -90,7 +90,7 @@ export function Hero() {
           <div>
             <motion.div custom={0} initial="hidden" animate="visible" variants={fadeUp}>
               <Badge variant="dark" className="mb-6">
-                🏃 Built for Running Coaches
+                🏃 Feito para Treinadores de Corrida
               </Badge>
             </motion.div>
 
@@ -101,8 +101,8 @@ export function Hero() {
               variants={fadeUp}
               className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6"
             >
-              Your entire coaching business.{" "}
-              <span className="text-[#f4a261]">One platform.</span>
+              Toda a sua assessoria de corrida.{" "}
+              <span className="text-[#f4a261]">Em uma plataforma.</span>
             </motion.h1>
 
             <motion.p
@@ -112,8 +112,8 @@ export function Hero() {
               variants={fadeUp}
               className="text-lg text-white/70 mb-8 max-w-lg"
             >
-              Manage athletes, deliver training plans, integrate wearables, and
-              grow your practice — all from Lyfe Run.
+              Gerencie atletas, entregue planilhas de treino, integre com dispositivos
+              e faça sua assessoria crescer — tudo pelo Lyfe Run.
             </motion.p>
 
             <motion.div
@@ -124,10 +124,10 @@ export function Hero() {
               className="flex flex-col sm:flex-row gap-4 mb-10"
             >
               <Button variant="primary" size="lg" href="#pricing">
-                Start Free Trial
+                Teste Grátis
               </Button>
               <Button variant="ghost" size="lg" href="#features">
-                See How It Works
+                Veja Como Funciona
               </Button>
             </motion.div>
 
@@ -150,7 +150,7 @@ export function Hero() {
               </div>
               <div>
                 <p className="text-white text-sm font-medium">
-                  Trusted by 500+ coaches
+                  Usado por mais de 500 treinadores
                 </p>
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => (

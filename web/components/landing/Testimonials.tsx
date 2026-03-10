@@ -7,27 +7,27 @@ import { Card } from "@/components/ui/Card";
 const testimonials = [
   {
     name: "Ricardo Mendes",
-    role: "Triathlon Coach, São Paulo",
+    role: "Treinador de Triathlon, São Paulo",
     initials: "RM",
     color: "bg-blue-500",
     quote:
-      "I went from managing plans in spreadsheets to having a fully automated system. My athletes get their plans on their Garmins every Monday without me lifting a finger.",
+      "Saí de planilhas em Excel para um sistema totalmente automatizado. Meus atletas recebem os treinos no Garmin toda segunda sem eu precisar fazer nada.",
   },
   {
     name: "Fernanda Souza",
-    role: "Marathon Coach, Curitiba",
+    role: "Treinadora de Maratona, Curitiba",
     initials: "FS",
     color: "bg-purple-500",
     quote:
-      "The AI feedback feature alone saves me 2 hours a day. I review and approve — it sounds exactly like me after the first week.",
+      "Só o recurso de feedback por IA me economiza 2 horas por dia. Eu reviso e aprovo — depois de uma semana já parece a minha voz.",
   },
   {
     name: "Bruno Alves",
-    role: "Trail Running Coach, Florianópolis",
+    role: "Treinador de Trail, Florianópolis",
     initials: "BA",
     color: "bg-orange-500",
     quote:
-      "My athletes finally have a professional app to track their runs. The VO2 and race prediction charts keep them motivated like nothing else I've tried.",
+      "Meus atletas finalmente têm um app profissional para acompanhar os treinos. Os gráficos de VO2 e previsão de prova mantêm eles motivados como nada que eu já testei.",
   },
 ];
 
@@ -37,7 +37,7 @@ export function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#264653] mb-4">
-            Coaches love Lyfe Run
+            Treinadores adoram o Lyfe Run
           </h2>
         </div>
 

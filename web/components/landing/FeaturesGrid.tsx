@@ -8,39 +8,39 @@ import { Card } from "@/components/ui/Card";
 const features = [
   {
     icon: Users,
-    title: "Athlete Management",
+    title: "Gestão de Atletas",
     description:
-      "Onboard new runners, manage subscriptions, and track every athlete's progress from a single back-office.",
+      "Cadastre novos corredores, gerencie assinaturas e acompanhe o progresso de cada atleta em um único painel.",
   },
   {
     icon: CalendarDays,
-    title: "Weekly Training Plans",
+    title: "Planilhas Semanais",
     description:
-      "Build personalized weekly plans with a drag-and-drop calendar. Push updates anytime — athletes get notified instantly.",
+      "Monte planilhas personalizadas com calendário drag-and-drop. Envie atualizações a qualquer momento — atletas são notificados na hora.",
   },
   {
     icon: Brain,
-    title: "AI-Powered Plans (Gold)",
+    title: "Planilhas com IA (Gold)",
     description:
-      "Generate a complete training block in seconds. Claude AI creates periodized plans based on the athlete's goals, fitness level, and race calendar.",
+      "Gere um bloco completo de treino em segundos. A IA cria planilhas periodizadas com base nos objetivos, nível e calendário de provas do atleta.",
   },
   {
     icon: Watch,
-    title: "Wearable Integration",
+    title: "Integração com Wearables",
     description:
-      "Sync with Garmin, Apple Watch, Whoop, and Strava. Plans land on the athlete's device automatically.",
+      "Sincronize com Garmin, Apple Watch, Whoop e Strava. As planilhas chegam no dispositivo do atleta automaticamente.",
   },
   {
     icon: BarChart2,
-    title: "Performance Analytics",
+    title: "Análise de Desempenho",
     description:
-      "Planned vs. actual, VO2 Max estimation, predicted race times for 5K to marathon — updated after every run.",
+      "Planejado vs. realizado, estimativa de VO2 Max, previsão de tempos de prova de 5K a maratona — atualizado a cada treino.",
   },
   {
     icon: MessageSquare,
-    title: "AI Feedback (Gold)",
+    title: "Feedback com IA (Gold)",
     description:
-      "After each session, AI drafts a coaching message. You review, edit, or approve with one click. Offload the repetitive work.",
+      "Após cada sessão, a IA rascunha uma mensagem de coaching. Você revisa, edita ou aprova com um clique. Delegue o trabalho repetitivo.",
   },
 ];
 
@@ -50,10 +50,10 @@ export function FeaturesGrid() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#264653] mb-4">
-            Everything you need to coach at scale
+            Tudo o que você precisa para treinar em escala
           </h2>
           <p className="text-[#666666] text-lg max-w-2xl mx-auto">
-            From athlete onboarding to AI-powered feedback, Lyfe Run handles the platform so you can focus on coaching.
+            Do cadastro de atletas ao feedback com IA, o Lyfe Run cuida da plataforma para que você foque no coaching.
           </p>
         </div>
 

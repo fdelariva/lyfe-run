@@ -8,39 +8,39 @@ import { Badge } from "@/components/ui/Badge";
 
 const plans = [
   {
-    name: "Basic Plan",
+    name: "Plano Basic",
     price: "R$ 200",
-    period: "/ month",
+    period: "/ mês",
     sublabel: null,
     badge: null,
     highlighted: false,
     features: [
-      "Up to 20 athletes",
-      "Weekly plan builder",
-      "Strava + GPS recording",
-      "Custom landing page",
-      "PIX, credit card, bank transfer",
-      "Basic analytics",
+      "Até 20 atletas",
+      "Montador de planilha semanal",
+      "Strava + gravação GPS",
+      "Página personalizada",
+      "PIX, cartão de crédito, transferência",
+      "Análises básicas",
     ],
-    cta: "Start with Basic",
+    cta: "Começar com Basic",
   },
   {
-    name: "Gold Plan",
+    name: "Plano Gold",
     price: "3%",
-    period: "of monthly revenue",
-    sublabel: "Only pay when you earn",
-    badge: "Most Popular",
+    period: "da receita mensal",
+    sublabel: "Pague apenas quando ganhar",
+    badge: "Mais Popular",
     highlighted: true,
     features: [
-      "Unlimited athletes",
-      "AI training plan generation",
-      "AI session feedback drafting",
-      "Garmin + Apple Watch + Whoop integration",
-      "Advanced analytics + cohort views",
-      "VO2 Max + race time predictions",
-      "Priority support",
+      "Atletas ilimitados",
+      "Geração de planilha por IA",
+      "Feedback de sessão por IA",
+      "Integração Garmin + Apple Watch + Whoop",
+      "Análises avançadas + visão por grupo",
+      "VO2 Max + previsão de tempos de prova",
+      "Suporte prioritário",
     ],
-    cta: "Start Gold Trial",
+    cta: "Testar Plano Gold",
   },
 ];
 
@@ -50,10 +50,10 @@ export function Pricing() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
-            Simple, coach-friendly pricing
+            Preços simples, feitos para treinadores
           </h2>
           <p className="text-white/60 text-lg">
-            Grow your practice. Only pay more when you earn more.
+            Cresça sua assessoria. Pague mais apenas quando ganhar mais.
           </p>
         </div>
 
@@ -120,7 +120,7 @@ export function Pricing() {
         </div>
 
         <p className="text-center text-white/40 text-sm mt-8">
-          No setup fees. Cancel anytime. PIX, credit card, or bank transfer accepted.
+          Sem taxa de adesão. Cancele quando quiser. PIX, cartão de crédito ou transferência.
         </p>
       </div>
     </section>

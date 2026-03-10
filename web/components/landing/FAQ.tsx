@@ -5,28 +5,28 @@ import { Accordion, AccordionItem } from "@/components/ui/Accordion";
 
 const faqs = [
   {
-    q: "How does the Gold Plan 3% work?",
-    a: "We calculate 3% of the total monthly subscription revenue you collect through Lyfe Run from your athletes. There is no flat fee — if you earn R$ 10,000 in a month, you pay R$ 300. If you're just starting out, you pay almost nothing.",
+    q: "Como funciona o Plano Gold de 3%?",
+    a: "Calculamos 3% da receita total de assinaturas mensais que você coleta pelo Lyfe Run dos seus atletas. Não há taxa fixa — se você faturar R$ 10.000 no mês, paga R$ 300. Se está começando, paga quase nada.",
   },
   {
-    q: "Which wearables are supported?",
-    a: "Garmin (all GPS watches via Connect IQ), Apple Watch (via HealthKit/WorkoutKit), Whoop, and Strava. If your athlete has none of these, they can use our built-in GPS recording on iOS or Android.",
+    q: "Quais wearables são suportados?",
+    a: "Garmin (todos os relógios GPS via Connect IQ), Apple Watch (via HealthKit/WorkoutKit), Whoop e Strava. Se seu atleta não tiver nenhum desses, pode usar nossa gravação GPS integrada no iOS ou Android.",
   },
   {
-    q: "Can I migrate my existing athletes?",
-    a: "Yes. You can bulk-import athletes via CSV and send them a migration invite. They complete onboarding and payment setup in under 5 minutes.",
+    q: "Posso migrar meus atletas atuais?",
+    a: "Sim. Você pode importar atletas em massa via CSV e enviar um convite de migração. Eles completam o cadastro e configuração de pagamento em menos de 5 minutos.",
   },
   {
-    q: "How does the AI plan generation work?",
-    a: "You fill in the athlete's profile: goal race, current fitness, weekly volume, test results. The AI (powered by Claude) returns a complete periodized training block. You review and edit before it's ever sent to the athlete.",
+    q: "Como funciona a geração de planilha por IA?",
+    a: "Você preenche o perfil do atleta: prova objetivo, condicionamento atual, volume semanal, resultados de testes. A IA (powered by Claude) retorna um bloco completo de treino periodizado. Você revisa e edita antes de enviar ao atleta.",
   },
   {
-    q: "What payment methods do athletes use?",
-    a: "Athletes can pay via credit card (Visa, Mastercard, Amex), PIX instant transfer, or bank transfer (TED). All payment processing is handled securely — you never touch card data.",
+    q: "Quais formas de pagamento os atletas podem usar?",
+    a: "Os atletas podem pagar via cartão de crédito (Visa, Mastercard, Amex), PIX ou transferência bancária (TED). Todo o processamento é feito de forma segura — você nunca toca nos dados do cartão.",
   },
   {
-    q: "Is there a free trial?",
-    a: "Yes. Both plans include a 14-day free trial with full access to all features of the selected plan. No credit card required to start.",
+    q: "Existe teste grátis?",
+    a: "Sim. Ambos os planos incluem 14 dias de teste grátis com acesso completo a todos os recursos do plano selecionado. Não é necessário cartão de crédito para começar.",
   },
 ];
 
@@ -36,7 +36,7 @@ export function FAQ() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#264653] mb-4">
-            Frequently asked questions
+            Perguntas frequentes
           </h2>
         </div>
 
