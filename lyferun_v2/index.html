@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lap AI — AI Copilot for Running Coaches</title>
+  <meta name="description" content="Lap AI: o copiloto de IA para coaches e assessorias de corrida. Planos, feedback e ajustes inteligentes — com o coach sempre no comando.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #674ebc;
+      --cyan: #03ddcf;
+      --yellow: #fdff70;
+      --pink: #ec6f9b;
+      --dark: #333234;
+      --dark2: #272628;
+      --light: #f4f3f8;
+      --muted: #9a9899;
+      --font: 'Funnel Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--dark2); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: transparent;
+      transition: background .4s, backdrop-filter .4s;
+    }
+    nav.scrolled {
+      background: rgba(51,50,52,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(103,78,188,.25);
+    }
+    .nav-logo {
+      font-size: 1.25rem; font-weight: 800; letter-spacing: -.03em;
+      color: var(--light);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { color: var(--cyan); }
+    .nav-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.6); opacity: .6; }
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: .85rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; letter-spacing: .02em;
+      transition: color .25s;
+    }
+    .nav-links a:hover { color: var(--light); }
+    .nav-cta {
+      background: var(--yellow); color: var(--dark2);
+      padding: 10px 22px; border-radius: 100px;
+      font-size: .85rem; font-weight: 700; text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      letter-spacing: -.01em;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(253,255,112,.3); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 120px 40px 80px;
+      text-align: center;
+    }
+    .hero-bg-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(103,78,188,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(103,78,188,.12) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 40%, transparent 100%);
+    }
+    .hero-glow {
+      position: absolute; width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(103,78,188,.35) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-55%);
+      pointer-events: none;
+      animation: glow-pulse 6s ease-in-out infinite;
+    }
+    @keyframes glow-pulse {
+      0%,100% { transform: translate(-50%,-55%) scale(1); opacity: 1; }
+      50% { transform: translate(-50%,-55%) scale(1.1); opacity: .7; }
+    }
+
+    /* Floating background cards */
+    .hero-floaters {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+    }
+    .floater {
+      position: absolute;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: .75rem; color: var(--muted);
+      white-space: nowrap;
+      backdrop-filter: blur(4px);
+    }
+    .floater strong { color: var(--light); font-weight: 600; }
+    .floater .tag {
+      display: inline-block; border-radius: 100px;
+      padding: 2px 8px; font-size: .65rem; font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .floater-1 { top: 18%; left: 6%; animation: float-a 14s ease-in-out infinite; }
+    .floater-2 { top: 30%; right: 5%; animation: float-b 11s ease-in-out infinite; }
+    .floater-3 { bottom: 28%; left: 8%; animation: float-c 16s ease-in-out infinite; }
+    .floater-4 { bottom: 22%; right: 7%; animation: float-a 13s ease-in-out infinite reverse; }
+    .floater-5 { top: 14%; left: 35%; animation: float-b 18s ease-in-out infinite; }
+    .floater-6 { bottom: 15%; left: 40%; animation: float-c 12s ease-in-out infinite reverse; }
+
+    @keyframes float-a {
+      0%,100% { transform: translateY(0) translateX(0) rotate(0deg); }
+      33% { transform: translateY(-18px) translateX(8px) rotate(.8deg); }
+      66% { transform: translateY(10px) translateX(-6px) rotate(-.5deg); }
+    }
+    @keyframes float-b {
+      0%,100% { transform: translateY(0) translateX(0) rotate(0deg); }
+      40% { transform: translateY(14px) translateX(-10px) rotate(-1deg); }
+      70% { transform: translateY(-12px) translateX(6px) rotate(.7deg); }
+    }
+    @keyframes float-c {
+      0%,100% { transform: translateY(0) translateX(0) rotate(0deg); }
+      25% { transform: translateY(-8px) translateX(12px) rotate(.4deg); }
+      75% { transform: translateY(16px) translateX(-8px) rotate(-1.2deg); }
+    }
+
+    /* Hero Content */
+    .hero-content { position: relative; z-index: 2; max-width: 900px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(3,221,207,.35);
+      background: rgba(3,221,207,.08);
+      padding: 6px 16px; border-radius: 100px;
+      font-size: .8rem; font-weight: 600; color: var(--cyan);
+      letter-spacing: .08em; text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    .hero-h1 {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.04em;
+      margin-bottom: 28px;
+      color: var(--light);
+    }
+    .hero-h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 400; color: var(--muted);
+      max-width: 560px; margin: 0 auto 40px;
+      line-height: 1.65;
+    }
+    .hero-cta-group {
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--yellow); color: var(--dark2);
+      padding: 16px 36px; border-radius: 100px;
+      font-size: 1rem; font-weight: 800; text-decoration: none;
+      letter-spacing: -.02em;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(253,255,112,.35);
+    }
+    .btn-primary svg { transition: transform .25s; }
+    .btn-primary:hover svg { transform: translateX(4px); }
+    .hero-microcopy {
+      font-size: .8rem; color: var(--muted); line-height: 1.5;
+      max-width: 360px; text-align: center;
+    }
+
+    /* ─── TICKER ─── */
+    .ticker-wrap {
+      width: 100%; overflow: hidden; padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,.07);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: var(--dark2);
+    }
+    .ticker-track {
+      display: flex; gap: 0;
+      animation: ticker 28s linear infinite;
+      width: max-content;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 32px;
+      font-size: .85rem; font-weight: 600;
+      color: var(--muted); white-space: nowrap;
+    }
+    .ticker-item span { color: var(--cyan); }
+    .ticker-sep { color: rgba(255,255,255,.15); }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── PAIN SECTION ─── */
+    .pain-section {
+      background: var(--purple);
+      padding: 100px 40px;
+      position: relative; overflow: hidden;
+    }
+    .pain-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .pain-inner {
+      position: relative; z-index: 2;
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .pain-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -.035em; color: white;
+    }
+    .pain-title em {
+      font-style: normal;
+      background: var(--yellow);
+      color: var(--dark2);
+      padding: 0 6px; border-radius: 4px;
+    }
+    .pain-bullets { display: flex; flex-direction: column; gap: 20px; }
+    .pain-bullet {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 24px; border-radius: 16px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(8px);
+      transition: transform .3s, background .3s;
+    }
+    .pain-bullet:hover {
+      transform: translateX(8px);
+      background: rgba(255,255,255,.13);
+    }
+    .pain-bullet-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: rgba(253,255,112,.15);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .pain-bullet-text { font-size: 1rem; font-weight: 500; color: white; line-height: 1.4; }
+
+    /* ─── FEATURES ─── */
+    .feature-section {
+      padding: 120px 40px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .feature-header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: end; margin-bottom: 72px;
+    }
+    .feature-num {
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 16px;
+    }
+    .feature-title {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -.035em;
+    }
+    .feature-support {
+      font-size: 1rem; color: var(--muted); line-height: 1.7;
+      max-width: 420px; align-self: end;
+    }
+
+    /* Cards row */
+    .cards-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .feature-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 20px; padding: 28px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: transform .4s cubic-bezier(.175,.885,.32,1.275), border-color .3s, box-shadow .3s;
+      cursor: default;
+    }
+    .feature-card:hover {
+      transform: translateY(-12px) rotate(.5deg);
+      border-color: rgba(103,78,188,.5);
+      box-shadow: 0 24px 60px rgba(103,78,188,.2);
+    }
+    .feature-card:nth-child(2):hover { transform: translateY(-12px) rotate(-.5deg); }
+    .feature-card:nth-child(3):hover { transform: translateY(-12px) rotate(.3deg); }
+    .card-img-placeholder {
+      width: 100%; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(103,78,188,.2), rgba(3,221,207,.1));
+      border: 1px solid rgba(255,255,255,.06);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .card-img-placeholder.tall { aspect-ratio: 4/3; }
+    .card-img-placeholder.wide { aspect-ratio: 16/9; }
+    .placeholder-inner {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.2); font-size: .75rem; font-weight: 500;
+    }
+    .placeholder-inner svg { opacity: .35; }
+    .placeholder-shimmer {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.04) 50%, transparent 100%);
+      animation: shimmer 2.5s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .card-accent-line {
+      width: 32px; height: 3px; border-radius: 2px;
+    }
+    .card-title { font-size: 1.1rem; font-weight: 700; line-height: 1.2; }
+    .card-text { font-size: .875rem; color: var(--muted); line-height: 1.65; flex: 1; }
+    .card-tag {
+      display: inline-flex; align-items: center;
+      padding: 4px 12px; border-radius: 100px;
+      font-size: .7rem; font-weight: 700; letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    /* Feature 2 - pink accents */
+    .feature-section.f2 .feature-card:hover {
+      border-color: rgba(236,111,155,.4);
+      box-shadow: 0 24px 60px rgba(236,111,155,.15);
+    }
+
+    /* ─── MARQUEE CARDS BAND ─── */
+    .marquee-band {
+      width: 100%; overflow: hidden; padding: 48px 0;
+      background: var(--dark2);
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .marquee-track {
+      display: flex; gap: 20px; width: max-content;
+      animation: marquee-slide 35s linear infinite;
+    }
+    .marquee-track-r {
+      display: flex; gap: 20px; width: max-content;
+      animation: marquee-slide-r 40s linear infinite;
+      margin-top: 16px;
+    }
+    .marquee-track:hover, .marquee-track-r:hover { animation-play-state: paused; }
+    @keyframes marquee-slide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marquee-slide-r {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .m-card {
+      width: 220px; flex-shrink: 0;
+      background: var(--dark);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 16px; padding: 20px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .m-card-img {
+      width: 100%; aspect-ratio: 4/3; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(103,78,188,.25), rgba(236,111,155,.15));
+      border: 1px solid rgba(255,255,255,.05);
+      position: relative; overflow: hidden;
+    }
+    .m-card-label { font-size: .75rem; font-weight: 600; color: var(--muted); }
+    .m-card-value { font-size: 1.5rem; font-weight: 800; color: var(--light); line-height: 1; }
+    .m-card-sub { font-size: .7rem; color: var(--muted); }
+
+    /* ─── PLANS ─── */
+    .plans-section {
+      padding: 120px 40px;
+      background: var(--dark2);
+      position: relative; overflow: hidden;
+    }
+    .plans-section::before {
+      content: '';
+      position: absolute; top: -300px; right: -200px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(236,111,155,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .plans-header {
+      text-align: center; margin-bottom: 72px; position: relative; z-index: 2;
+    }
+    .plans-eyebrow {
+      font-size: .8rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--pink); margin-bottom: 16px;
+    }
+    .plans-title {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -.04em; margin-bottom: 16px;
+    }
+    .plans-sub {
+      font-size: 1rem; color: var(--muted);
+      max-width: 480px; margin: 0 auto; line-height: 1.65;
+    }
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px; max-width: 1000px; margin: 0 auto;
+      position: relative; z-index: 2;
+    }
+    .plan-card {
+      border-radius: 24px; padding: 36px;
+      display: flex; flex-direction: column; gap: 20px;
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(255,255,255,.07);
+      background: var(--dark);
+      cursor: default;
+      transition: transform .4s cubic-bezier(.175,.885,.32,1.275), box-shadow .4s;
+    }
+    .plan-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      border-radius: 24px 24px 0 0;
+    }
+    .plan-card.p1::before { background: linear-gradient(90deg, var(--cyan), var(--purple)); }
+    .plan-card.p2::before { background: linear-gradient(90deg, var(--purple), var(--pink)); }
+    .plan-card.p3::before { background: linear-gradient(90deg, var(--pink), var(--yellow)); }
+    .plan-card.p4 {
+      background: var(--purple);
+      border-color: rgba(103,78,188,.4);
+    }
+    .plan-card.p4::before { background: linear-gradient(90deg, var(--yellow), var(--cyan)); }
+    .plan-card:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 32px 80px rgba(0,0,0,.4);
+    }
+    .plan-card.p1:hover { box-shadow: 0 32px 80px rgba(3,221,207,.15); }
+    .plan-card.p2:hover { box-shadow: 0 32px 80px rgba(103,78,188,.2); }
+    .plan-card.p3:hover { box-shadow: 0 32px 80px rgba(236,111,155,.15); }
+    .plan-card.p4:hover { box-shadow: 0 32px 80px rgba(253,255,112,.15); }
+    .plan-img-placeholder {
+      width: 100%; aspect-ratio: 16/7; border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.06);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .plan-card.p4 .plan-img-placeholder { background: rgba(255,255,255,.1); }
+    .plan-name-tag {
+      display: inline-block; font-size: .7rem; font-weight: 800;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 4px;
+    }
+    .p1 .plan-name-tag { background: rgba(3,221,207,.15); color: var(--cyan); }
+    .p2 .plan-name-tag { background: rgba(103,78,188,.25); color: #a98ff0; }
+    .p3 .plan-name-tag { background: rgba(236,111,155,.15); color: var(--pink); }
+    .p4 .plan-name-tag { background: rgba(253,255,112,.15); color: var(--yellow); }
+    .plan-name {
+      font-size: 1.8rem; font-weight: 800;
+      letter-spacing: -.04em; line-height: 1;
+    }
+    .p4 .plan-name { color: white; }
+    .plan-tagline { font-size: .85rem; color: var(--muted); font-style: italic; }
+    .p4 .plan-tagline { color: rgba(255,255,255,.6); }
+    .plan-desc { font-size: .875rem; color: var(--muted); line-height: 1.65; }
+    .p4 .plan-desc { color: rgba(255,255,255,.7); }
+    .btn-plan {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 24px; border-radius: 100px;
+      font-size: .875rem; font-weight: 700; text-decoration: none;
+      letter-spacing: -.01em;
+      transition: transform .2s, box-shadow .2s;
+      border: none; cursor: pointer; width: 100%;
+    }
+    .btn-plan:hover { transform: translateY(-2px); }
+    .p1 .btn-plan, .p2 .btn-plan, .p3 .btn-plan {
+      background: rgba(255,255,255,.07);
+      color: var(--light);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .p1 .btn-plan:hover { background: var(--cyan); color: var(--dark2); box-shadow: 0 8px 24px rgba(3,221,207,.3); }
+    .p2 .btn-plan:hover { background: var(--purple); color: white; box-shadow: 0 8px 24px rgba(103,78,188,.4); }
+    .p3 .btn-plan:hover { background: var(--pink); color: white; box-shadow: 0 8px 24px rgba(236,111,155,.3); }
+    .p4 .btn-plan {
+      background: var(--yellow); color: var(--dark2);
+    }
+    .p4 .btn-plan:hover { box-shadow: 0 8px 24px rgba(253,255,112,.4); }
+    .plans-microcopy {
+      text-align: center; margin-top: 32px;
+      font-size: .8rem; color: var(--muted); line-height: 1.6;
+      max-width: 480px; margin-left: auto; margin-right: auto;
+      position: relative; z-index: 2;
+    }
+
+    /* ─── CTA FINAL ─── */
+    .cta-final {
+      padding: 140px 40px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+      background: var(--dark);
+    }
+    .cta-bg-glow {
+      position: absolute;
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, rgba(3,221,207,.15) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      pointer-events: none;
+    }
+    .cta-super {
+      font-size: clamp(3.5rem, 8vw, 8rem);
+      font-weight: 800; line-height: 1;
+      letter-spacing: -.04em;
+      position: relative; z-index: 2;
+      margin-bottom: 24px;
+    }
+    .cta-super em {
+      font-style: normal;
+      color: var(--cyan);
+    }
+    .cta-body {
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 480px; line-height: 1.7;
+      margin-bottom: 48px; position: relative; z-index: 2;
+    }
+    .cta-final .btn-primary {
+      position: relative; z-index: 2;
+      font-size: 1.1rem; padding: 20px 48px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark2);
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo { font-size: 1.1rem; font-weight: 800; letter-spacing: -.03em; }
+    .footer-logo span { color: var(--cyan); }
+    .footer-text { font-size: .8rem; color: var(--muted); }
+
+    /* ─── REVEAL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.from-left { transform: translateX(-50px) translateY(0); }
+    .reveal.from-right { transform: translateX(50px) translateY(0); }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0) translateX(0);
+    }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .floater-1, .floater-2, .floater-5, .floater-6 { display: none; }
+      .pain-inner { grid-template-columns: 1fr; gap: 40px; }
+      .feature-header { grid-template-columns: 1fr; gap: 16px; }
+      .cards-row { grid-template-columns: 1fr; }
+      .plans-grid { grid-template-columns: 1fr; }
+      .feature-section { padding: 80px 24px; }
+      .plans-section { padding: 80px 24px; }
+      .cta-final { padding: 100px 24px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <div class="nav-dot"></div>
+      Lap<span>AI</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#feedback">Feedback</a></li>
+      <li><a href="#planos">Planos</a></li>
+    </ul>
+    <a href="#planos" class="nav-cta">Explorar planos</a>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow"></div>
+
+    <!-- Floating cards background -->
+    <div class="hero-floaters">
+      <div class="floater floater-1">
+        <div class="tag" style="background:rgba(3,221,207,.15);color:#03ddcf;">Atleta</div>
+        <strong>Carlos M.</strong><br>
+        <span>Plano semana 12 · 67km</span>
+      </div>
+      <div class="floater floater-2">
+        <div class="tag" style="background:rgba(253,255,112,.15);color:#fdff70;">Sugestão IA</div>
+        <strong>Reduzir carga 15%</strong><br>
+        <span>Recuperação abaixo do esperado</span>
+      </div>
+      <div class="floater floater-3">
+        <div class="tag" style="background:rgba(236,111,155,.15);color:#ec6f9b;">Feedback</div>
+        <strong>Treino aprovado ✓</strong><br>
+        <span>Enviado para 24 atletas</span>
+      </div>
+      <div class="floater floater-4">
+        <div class="tag" style="background:rgba(103,78,188,.2);color:#a98ff0;">Atenção</div>
+        <strong>3 atletas em risco</strong><br>
+        <span>Ação recomendada hoje</span>
+      </div>
+      <div class="floater floater-5">
+        <span style="font-size:.65rem;color:#03ddcf;font-weight:700;letter-spacing:.08em">ASSESSORIA · 4 SEMANAS</span><br>
+        <strong style="font-size:1.2rem">87 atletas</strong><br>
+        <span>Planos gerados automaticamente</span>
+      </div>
+      <div class="floater floater-6">
+        <div class="tag" style="background:rgba(253,255,112,.15);color:#fdff70;">Pré-plano pronto</div>
+        <strong>Ana L. — Meia Maratona</strong><br>
+        <span>Aguardando revisão do coach</span>
+      </div>
+    </div>
+
+    <div class="hero-content reveal">
+      <div class="hero-eyebrow">AI Copilot for Running Coaches</div>
+      <h1 class="hero-h1">
+        Sua metodologia,<br>agora operando<br>com <em>escala.</em>
+      </h1>
+      <p class="hero-sub">
+        Planeje treinos, gerencie atletas e cuide da comunicação com IA — sem abrir mão do coach humano.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#planos" class="btn-primary">
+          Explorar planos
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="hero-microcopy">Deixe seu e-mail ou telefone. Nosso time mostra o plano certo para a sua assessoria.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TICKER ─── -->
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <div class="ticker-item"><span>Pré-Plano Inteligente</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Ajustes Sugeridos pela IA<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Feedback Pós-Treino</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Triagem de Atletas<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Chat Contextualizado</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Assessoria em Escala<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Coach no Comando</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Decisão Humana<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Pré-Plano Inteligente</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Ajustes Sugeridos pela IA<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Feedback Pós-Treino</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Triagem de Atletas<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Chat Contextualizado</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Assessoria em Escala<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Coach no Comando</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Decisão Humana<span class="ticker-sep">·</span></div>
+    </div>
+  </div>
+
+  <!-- ─── PAIN SECTION ─── -->
+  <section class="pain-section">
+    <div class="pain-inner">
+      <div class="reveal from-left">
+        <h2 class="pain-title">
+          Se o seu método ainda depende de <em>planilha</em>, memória e WhatsApp, o problema não é o treino.<br>É a operação.
+        </h2>
+      </div>
+      <div class="pain-bullets reveal from-right reveal-delay-1">
+        <div class="pain-bullet">
+          <div class="pain-bullet-icon">📬</div>
+          <div class="pain-bullet-text">Feedback demais para responder no braço</div>
+        </div>
+        <div class="pain-bullet">
+          <div class="pain-bullet-icon">⚡</div>
+          <div class="pain-bullet-text">Ajustes demais para controlar no improviso</div>
+        </div>
+        <div class="pain-bullet">
+          <div class="pain-bullet-icon">⏳</div>
+          <div class="pain-bullet-text">Tempo de menos para crescer com qualidade</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FEATURE 1 ─── -->
+  <section class="feature-section" id="metodo">
+    <div class="feature-header">
+      <div class="reveal">
+        <p class="feature-num">01 — Método em Escala</p>
+        <h2 class="feature-title">Planeje melhor. Ajuste mais rápido. Decida com contexto.</h2>
+      </div>
+      <p class="feature-support reveal from-right reveal-delay-2">
+        A Lap AI transforma o seu método em um fluxo vivo de trabalho — e reproduz sua lógica para cada atleta, sem você refazer tudo do zero.
+      </p>
+    </div>
+    <div class="cards-row">
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="card-img-placeholder tall">
+          <div class="placeholder-inner">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            <span>Pré-plano 4 semanas</span>
+          </div>
+          <div class="placeholder-shimmer"></div>
+        </div>
+        <div class="card-accent-line" style="background: var(--cyan);"></div>
+        <div>
+          <div class="card-tag" style="background:rgba(3,221,207,.1);color:var(--cyan);">Geração</div>
+          <div class="card-title" style="margin-top:8px;">Pré-Plano Inteligente</div>
+        </div>
+        <p class="card-text">A IA monta o rascunho de 4 semanas com base no perfil, no objetivo e na sua metodologia. Você revisa e aprova antes de qualquer atleta ver.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="card-img-placeholder tall" style="background: linear-gradient(135deg, rgba(253,255,112,.12), rgba(3,221,207,.08));">
+          <div class="placeholder-inner">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            <span>Análise de carga</span>
+          </div>
+          <div class="placeholder-shimmer"></div>
+        </div>
+        <div class="card-accent-line" style="background: var(--yellow);"></div>
+        <div>
+          <div class="card-tag" style="background:rgba(253,255,112,.1);color:var(--yellow);">Análise</div>
+          <div class="card-title" style="margin-top:8px;">Ajustes Sugeridos</div>
+        </div>
+        <p class="card-text">Carga fora do esperado? Recuperação insuficiente? A IA identifica, sugere a correção e explica o porquê. A decisão final é sempre sua.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="card-img-placeholder tall" style="background: linear-gradient(135deg, rgba(236,111,155,.15), rgba(103,78,188,.1));">
+          <div class="placeholder-inner">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            <span>Painel de atletas</span>
+          </div>
+          <div class="placeholder-shimmer"></div>
+        </div>
+        <div class="card-accent-line" style="background: var(--pink);"></div>
+        <div>
+          <div class="card-tag" style="background:rgba(236,111,155,.1);color:var(--pink);">Triagem</div>
+          <div class="card-title" style="margin-top:8px;">Quem Precisa de Atenção Hoje</div>
+        </div>
+        <p class="card-text">Pare de varrer atleta por atleta. A Lap AI sinaliza quem está em risco, quem desacelerou e onde agir antes que vire problema.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MARQUEE CARDS BAND ─── -->
+  <div class="marquee-band">
+    <div class="marquee-track">
+      <div class="m-card">
+        <div class="m-card-img"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Aderência semanal</div>
+        <div class="m-card-value" style="color: var(--cyan);">94%</div>
+        <div class="m-card-sub">+8% vs semana anterior</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(253,255,112,.2), rgba(3,221,207,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Planos gerados</div>
+        <div class="m-card-value" style="color: var(--yellow);">312</div>
+        <div class="m-card-sub">Neste mês</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(236,111,155,.2), rgba(103,78,188,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Feedbacks enviados</div>
+        <div class="m-card-value" style="color: var(--pink);">1.8k</div>
+        <div class="m-card-sub">Automáticos esta semana</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(103,78,188,.25), rgba(3,221,207,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Tempo economizado</div>
+        <div class="m-card-value" style="color: #a98ff0;">12h</div>
+        <div class="m-card-sub">Por semana por coach</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Satisfação atletas</div>
+        <div class="m-card-value" style="color: var(--cyan);">4.9</div>
+        <div class="m-card-sub">Média de feedback</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(253,255,112,.15), rgba(236,111,155,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Atletas gerenciados</div>
+        <div class="m-card-value" style="color: var(--yellow);">87</div>
+        <div class="m-card-sub">Média por assessoria</div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="m-card">
+        <div class="m-card-img"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Aderência semanal</div>
+        <div class="m-card-value" style="color: var(--cyan);">94%</div>
+        <div class="m-card-sub">+8% vs semana anterior</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(253,255,112,.2), rgba(3,221,207,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Planos gerados</div>
+        <div class="m-card-value" style="color: var(--yellow);">312</div>
+        <div class="m-card-sub">Neste mês</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(236,111,155,.2), rgba(103,78,188,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Feedbacks enviados</div>
+        <div class="m-card-value" style="color: var(--pink);">1.8k</div>
+        <div class="m-card-sub">Automáticos esta semana</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(103,78,188,.25), rgba(3,221,207,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Tempo economizado</div>
+        <div class="m-card-value" style="color: #a98ff0;">12h</div>
+        <div class="m-card-sub">Por semana por coach</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Satisfação atletas</div>
+        <div class="m-card-value" style="color: var(--cyan);">4.9</div>
+        <div class="m-card-sub">Média de feedback</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(253,255,112,.15), rgba(236,111,155,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Atletas gerenciados</div>
+        <div class="m-card-value" style="color: var(--yellow);">87</div>
+        <div class="m-card-sub">Média por assessoria</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FEATURE 2 ─── -->
+  <section class="feature-section f2" id="feedback">
+    <div class="feature-header">
+      <div class="reveal">
+        <p class="feature-num" style="color: var(--pink);">02 — Feedback & Comunicação</p>
+        <h2 class="feature-title">Cada treino vira contexto. Não vira mais uma mensagem perdida no WhatsApp.</h2>
+      </div>
+      <p class="feature-support reveal from-right reveal-delay-2">
+        A Lap AI lê a execução, interpreta o que aconteceu e prepara a resposta — para você enviar com um toque, no momento certo.
+      </p>
+    </div>
+    <div class="cards-row">
+      <div class="feature-card reveal reveal-delay-1" style="border-color: rgba(236,111,155,.1);">
+        <div class="card-img-placeholder wide" style="background: linear-gradient(135deg, rgba(236,111,155,.2), rgba(103,78,188,.1));">
+          <div class="placeholder-inner">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <span>Treino vs. executado</span>
+          </div>
+          <div class="placeholder-shimmer"></div>
+        </div>
+        <div class="card-accent-line" style="background: var(--pink);"></div>
+        <div>
+          <div class="card-tag" style="background:rgba(236,111,155,.1);color:var(--pink);">Pós-treino</div>
+          <div class="card-title" style="margin-top:8px;">Feedback Pós-Treino</div>
+        </div>
+        <p class="card-text">Após cada sessão, a IA analisa treino prescrito versus executado e gera um feedback claro para o atleta. Você aprova. O atleta recebe.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2" style="border-color: rgba(103,78,188,.1);">
+        <div class="card-img-placeholder wide" style="background: linear-gradient(135deg, rgba(103,78,188,.25), rgba(3,221,207,.1));">
+          <div class="placeholder-inner">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <span>Histórico de conversa</span>
+          </div>
+          <div class="placeholder-shimmer"></div>
+        </div>
+        <div class="card-accent-line" style="background: var(--purple);"></div>
+        <div>
+          <div class="card-tag" style="background:rgba(103,78,188,.15);color:#a98ff0;">Contexto</div>
+          <div class="card-title" style="margin-top:8px;">Chat Contextualizado</div>
+        </div>
+        <p class="card-text">Cada conversa nasce ancorada no treino real do atleta. Sem perder contexto. Sem responder de memória. Sem print solto.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3" style="border-color: rgba(3,221,207,.1);">
+        <div class="card-img-placeholder wide" style="background: linear-gradient(135deg, rgba(3,221,207,.15), rgba(253,255,112,.1));">
+          <div class="placeholder-inner">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            <span>Sugestão de resposta</span>
+          </div>
+          <div class="placeholder-shimmer"></div>
+        </div>
+        <div class="card-accent-line" style="background: var(--cyan);"></div>
+        <div>
+          <div class="card-tag" style="background:rgba(3,221,207,.1);color:var(--cyan);">Assistente</div>
+          <div class="card-title" style="margin-top:8px;">Assistente do Coach</div>
+        </div>
+        <p class="card-text">A IA sugere respostas com base nos dados do atleta. Você revisa, ajusta se quiser e envia com a sua voz.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PLANS ─── -->
+  <section class="plans-section" id="planos">
+    <div class="plans-header reveal">
+      <p class="plans-eyebrow">Planos</p>
+      <h2 class="plans-title">Escolha a prioridade.<br>Ou opere com <em style="color:var(--cyan);font-style:normal;">tudo.</em></h2>
+      <p class="plans-sub">Quatro formas de usar IA na sua assessoria. Uma delas vai bater exatamente na dor que hoje mais consome o seu tempo.</p>
+    </div>
+
+    <div class="plans-grid">
+      <!-- LAP DRAFT -->
+      <div class="plan-card p1 reveal reveal-delay-1">
+        <div class="plan-img-placeholder">
+          <div class="placeholder-inner" style="color:rgba(255,255,255,.2);font-size:.75rem;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:.4"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Interface de plano
+          </div>
+          <div class="placeholder-shimmer"></div>
+        </div>
+        <div>
+          <div class="plan-name-tag">Draft</div>
+          <div class="plan-name">Lap Draft</div>
+          <div class="plan-tagline">Para quem quer tirar o peso de montar tudo do zero</div>
+        </div>
+        <p class="plan-desc">O Lap Draft gera a estrutura inicial de cada ciclo de treinamento com base no seu método, no perfil do atleta e no objetivo da prova. Você entra para o que importa: revisar, ajustar e aprovar.</p>
+        <a href="#" class="btn-plan">Explorar Lap Draft →</a>
+      </div>
+
+      <!-- LAP PULSE -->
+      <div class="plan-card p2 reveal reveal-delay-2">
+        <div class="plan-img-placeholder" style="background:rgba(103,78,188,.15);">
+          <div class="placeholder-inner" style="color:rgba(255,255,255,.2);font-size:.75rem;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:.4"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Dashboard de métricas
+          </div>
+          <div class="placeholder-shimmer"></div>
+        </div>
+        <div>
+          <div class="plan-name-tag">Pulse</div>
+          <div class="plan-name">Lap Pulse</div>
+          <div class="plan-tagline">Para quem quer leitura contínua da operação</div>
+        </div>
+        <p class="plan-desc">O Lap Pulse monitora carga, aderência e recuperação de toda a base. Sinaliza quem precisa de atenção, sugere ajustes e garante que nenhum atleta passe invisível.</p>
+        <a href="#" class="btn-plan">Explorar Lap Pulse →</a>
+      </div>
+
+      <!-- LAP VOICE -->
+      <div class="plan-card p3 reveal reveal-delay-3">
+        <div class="plan-img-placeholder" style="background:rgba(236,111,155,.1);">
+          <div class="placeholder-inner" style="color:rgba(255,255,255,.2);font-size:.75rem;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:.4"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            Fluxo de feedback
+          </div>
+          <div class="placeholder-shimmer"></div>
+        </div>
+        <div>
+          <div class="plan-name-tag">Voice</div>
+          <div class="plan-name">Lap Voice</div>
+          <div class="plan-tagline">Para quem quer escalar feedback sem perder o tom humano</div>
+        </div>
+        <p class="plan-desc">O Lap Voice lê cada sessão, gera o feedback e prepara respostas personalizadas para o coach revisar e enviar. Menos tempo no WhatsApp. Mais qualidade em cada interação.</p>
+        <a href="#" class="btn-plan">Explorar Lap Voice →</a>
+      </div>
+
+      <!-- LAP COMMAND -->
+      <div class="plan-card p4 reveal reveal-delay-4">
+        <div class="plan-img-placeholder">
+          <div class="placeholder-inner" style="color:rgba(255,255,255,.35);font-size:.75rem;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Central completa
+          </div>
+          <div class="placeholder-shimmer"></div>
+        </div>
+        <div>
+          <div class="plan-name-tag">Command</div>
+          <div class="plan-name">Lap Command</div>
+          <div class="plan-tagline">Para quem quer a camada completa de IA na assessoria</div>
+        </div>
+        <p class="plan-desc">O Lap Command integra todos os módulos: rascunho de plano, análise de execução, sugestões de ajuste, triagem de atletas e assistente de comunicação. Uma operação inteligente de ponta a ponta.</p>
+        <a href="#" class="btn-plan">Explorar Lap Command →</a>
+      </div>
+    </div>
+
+    <p class="plans-microcopy reveal" style="margin-top:32px;">
+      Ao clicar em explorar, você preenche e-mail ou telefone e nosso time entra em contato para apresentar o plano com mais detalhe.
+    </p>
+  </section>
+
+  <!-- ─── CTA FINAL ─── -->
+  <section class="cta-final">
+    <div class="cta-bg-glow"></div>
+    <p class="cta-super reveal">
+      Menos operação<br>no improviso.<br><em>Mais método</em><br>em escala.
+    </p>
+    <p class="cta-body reveal reveal-delay-2">
+      A Lap AI foi construída para assessorias e coaches de corrida que querem crescer sem abrir mão da qualidade. A IA trabalha nos bastidores. O coach segue sendo o protagonista.
+    </p>
+    <a href="#planos" class="btn-primary reveal reveal-delay-3">
+      Quero explorar a Lap AI
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-logo">Lap<span>AI</span></div>
+    <div class="footer-text">© 2026 Lap AI · AI Copilot for Running Coaches</div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Card tilt on mouse move
+    document.querySelectorAll('.feature-card, .plan-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - .5;
+        const y = (e.clientY - rect.top) / rect.height - .5;
+        card.style.transform = `translateY(-12px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  </script>
+</body>
+</html>
