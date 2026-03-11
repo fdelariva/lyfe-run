@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupo de Corrida OS — Gerencie. Engaje. Ganhe.</title>
+  <meta name="description" content="A plataforma gratuita para líderes de grupos de corrida no Brasil. Organize saídas, engaje seus corredores e ganhe com patrocínios de marcas. Acesso antecipado disponível.">
+  <meta property="og:title" content="Grupo de Corrida OS — Gerencie. Engaje. Ganhe.">
+  <meta property="og:description" content="A plataforma gratuita para líderes de grupos de corrida no Brasil. Organize saídas, engaje seus corredores e ganhe com patrocínios de marcas.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #674ebc;
+      --cyan: #03ddcf;
+      --yellow: #fdff70;
+      --pink: #ec6f9b;
+      --dark: #333234;
+      --dark2: #272628;
+      --light: #f4f3f8;
+      --muted: #9a9899;
+      --font: 'Funnel Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--dark2); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: transparent;
+      transition: background .4s, backdrop-filter .4s;
+    }
+    nav.scrolled {
+      background: rgba(51,50,52,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(103,78,188,.25);
+    }
+    .nav-logo {
+      font-size: 1.25rem; font-weight: 800; letter-spacing: -.03em;
+      color: var(--light);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { color: var(--cyan); }
+    .nav-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.6); opacity: .6; }
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: .85rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; letter-spacing: .02em;
+      transition: color .25s;
+    }
+    .nav-links a:hover { color: var(--light); }
+    .nav-cta {
+      background: var(--yellow); color: var(--dark2);
+      padding: 10px 22px; border-radius: 100px;
+      font-size: .85rem; font-weight: 700; text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      letter-spacing: -.01em;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(253,255,112,.3); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 120px 40px 80px;
+      text-align: center;
+    }
+    .hero-bg-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(103,78,188,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(103,78,188,.12) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 40%, transparent 100%);
+    }
+    .hero-glow {
+      position: absolute; width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(103,78,188,.35) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-55%);
+      pointer-events: none;
+      animation: glow-pulse 6s ease-in-out infinite;
+    }
+    @keyframes glow-pulse {
+      0%,100% { transform: translate(-50%,-55%) scale(1); opacity: 1; }
+      50% { transform: translate(-50%,-55%) scale(1.1); opacity: .7; }
+    }
+
+    /* Floating background cards */
+    .hero-floaters {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+    }
+    .floater {
+      position: absolute;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: .75rem; color: var(--muted);
+      white-space: nowrap;
+      backdrop-filter: blur(4px);
+    }
+    .floater strong { color: var(--light); font-weight: 600; }
+    .floater .tag {
+      display: inline-block; border-radius: 100px;
+      padding: 2px 8px; font-size: .65rem; font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .floater-1 { top: 18%; left: 6%; animation: float-a 14s ease-in-out infinite; }
+    .floater-2 { top: 30%; right: 5%; animation: float-b 11s ease-in-out infinite; }
+    .floater-3 { bottom: 28%; left: 8%; animation: float-c 16s ease-in-out infinite; }
+    .floater-4 { bottom: 22%; right: 7%; animation: float-a 13s ease-in-out infinite reverse; }
+    .floater-5 { top: 14%; left: 35%; animation: float-b 18s ease-in-out infinite; }
+    .floater-6 { bottom: 15%; left: 40%; animation: float-c 12s ease-in-out infinite reverse; }
+
+    @keyframes float-a {
+      0%,100% { transform: translateY(0) translateX(0) rotate(0deg); }
+      33% { transform: translateY(-18px) translateX(8px) rotate(.8deg); }
+      66% { transform: translateY(10px) translateX(-6px) rotate(-.5deg); }
+    }
+    @keyframes float-b {
+      0%,100% { transform: translateY(0) translateX(0) rotate(0deg); }
+      40% { transform: translateY(14px) translateX(-10px) rotate(-1deg); }
+      70% { transform: translateY(-12px) translateX(6px) rotate(.7deg); }
+    }
+    @keyframes float-c {
+      0%,100% { transform: translateY(0) translateX(0) rotate(0deg); }
+      25% { transform: translateY(-8px) translateX(12px) rotate(.4deg); }
+      75% { transform: translateY(16px) translateX(-8px) rotate(-1.2deg); }
+    }
+
+    /* Hero Content */
+    .hero-content { position: relative; z-index: 2; max-width: 900px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(3,221,207,.35);
+      background: rgba(3,221,207,.08);
+      padding: 6px 16px; border-radius: 100px;
+      font-size: .8rem; font-weight: 600; color: var(--cyan);
+      letter-spacing: .08em; text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    .hero-h1 {
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      margin-bottom: 28px;
+      color: var(--light);
+    }
+    .hero-h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 400; color: var(--muted);
+      max-width: 600px; margin: 0 auto 40px;
+      line-height: 1.65;
+    }
+
+    /* ─── HERO FORM ─── */
+    .hero-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: 520px;
+      margin: 0 auto 20px;
+      text-align: left;
+    }
+    .hero-form input,
+    .hero-form select {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: var(--dark2);
+      color: var(--light);
+      font-family: var(--font);
+      font-size: .9rem;
+      font-weight: 500;
+      outline: none;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .hero-form input::placeholder { color: var(--muted); }
+    .hero-form select { color: var(--muted); cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%239a9899' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+    .hero-form select.has-value { color: var(--light); }
+    .hero-form input:focus,
+    .hero-form select:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(103,78,188,.2);
+    }
+    .hero-form .full-width { grid-column: 1 / -1; }
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--yellow); color: var(--dark2);
+      padding: 16px 36px; border-radius: 100px;
+      font-size: 1rem; font-weight: 800; text-decoration: none;
+      letter-spacing: -.02em;
+      transition: transform .25s, box-shadow .25s;
+      border: none; cursor: pointer;
+      font-family: var(--font);
+      width: 100%;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(253,255,112,.35);
+    }
+    .btn-primary svg { transition: transform .25s; }
+    .btn-primary:hover svg { transform: translateX(4px); }
+    .hero-trust {
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; flex-wrap: wrap;
+      font-size: .8rem; color: var(--muted); line-height: 1.5;
+      max-width: 520px; margin: 0 auto;
+    }
+    .hero-trust span { display: inline-flex; align-items: center; gap: 4px; }
+    .hero-trust .check { color: var(--cyan); font-weight: 700; }
+    .form-success {
+      display: none;
+      flex-direction: column; align-items: center; gap: 16px;
+      max-width: 520px; margin: 0 auto;
+      padding: 40px;
+      background: rgba(3,221,207,.06);
+      border: 1px solid rgba(3,221,207,.25);
+      border-radius: 20px;
+    }
+    .form-success.show { display: flex; }
+    .form-success h3 { font-size: 1.5rem; font-weight: 800; color: var(--cyan); }
+    .form-success p { font-size: .95rem; color: var(--muted); line-height: 1.6; }
+
+    /* ─── TICKER ─── */
+    .ticker-wrap {
+      width: 100%; overflow: hidden; padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,.07);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: var(--dark2);
+    }
+    .ticker-track {
+      display: flex; gap: 0;
+      animation: ticker 28s linear infinite;
+      width: max-content;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 32px;
+      font-size: .85rem; font-weight: 600;
+      color: var(--muted); white-space: nowrap;
+    }
+    .ticker-item span { color: var(--cyan); }
+    .ticker-sep { color: rgba(255,255,255,.15); }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── PAIN SECTION ─── */
+    .pain-section {
+      background: var(--purple);
+      padding: 100px 40px;
+      position: relative; overflow: hidden;
+    }
+    .pain-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .pain-inner {
+      position: relative; z-index: 2;
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .pain-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -.035em; color: white;
+    }
+    .pain-title em {
+      font-style: normal;
+      background: var(--yellow);
+      color: var(--dark2);
+      padding: 0 6px; border-radius: 4px;
+    }
+    .pain-bullets { display: flex; flex-direction: column; gap: 20px; }
+    .pain-bullet {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 24px; border-radius: 16px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(8px);
+      transition: transform .3s, background .3s;
+    }
+    .pain-bullet:hover {
+      transform: translateX(8px);
+      background: rgba(255,255,255,.13);
+    }
+    .pain-bullet-num {
+      font-size: 2rem; font-weight: 800; color: var(--yellow);
+      line-height: 1; flex-shrink: 0; min-width: 40px;
+    }
+    .pain-bullet-content { display: flex; flex-direction: column; gap: 6px; }
+    .pain-bullet-headline { font-size: 1rem; font-weight: 700; color: white; line-height: 1.3; }
+    .pain-bullet-text { font-size: .85rem; font-weight: 400; color: rgba(255,255,255,.65); line-height: 1.5; }
+
+    /* ─── FEATURES ─── */
+    .feature-section {
+      padding: 120px 40px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .feature-header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: end; margin-bottom: 72px;
+    }
+    .feature-num {
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 16px;
+    }
+    .feature-title {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -.035em;
+    }
+    .feature-support {
+      font-size: 1rem; color: var(--muted); line-height: 1.7;
+      max-width: 420px; align-self: end;
+    }
+
+    /* Feature layout - asymmetric */
+    .feature-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+    }
+    .feature-list { display: flex; flex-direction: column; gap: 28px; }
+    .feature-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 20px;
+      border-radius: 16px;
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,.07);
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+    .feature-item:hover {
+      transform: translateX(8px);
+      border-color: rgba(103,78,188,.4);
+      box-shadow: 0 8px 32px rgba(103,78,188,.1);
+    }
+    .feature-item-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .feature-item-content { display: flex; flex-direction: column; gap: 4px; }
+    .feature-item-label { font-size: 1rem; font-weight: 700; color: var(--light); }
+    .feature-item-desc { font-size: .85rem; color: var(--muted); line-height: 1.55; }
+
+    /* Mock UI card */
+    .mock-ui {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 28px;
+      transform: rotate(2deg);
+      transition: transform .4s;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .mock-ui:hover { transform: rotate(0deg) scale(1.02); }
+    .mock-header {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .mock-header-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .mock-header-badge {
+      padding: 4px 12px; border-radius: 100px;
+      font-size: .7rem; font-weight: 700;
+      background: rgba(3,221,207,.12); color: var(--cyan);
+    }
+    .mock-run-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .mock-run-title { font-size: 1.1rem; font-weight: 700; }
+    .mock-run-meta {
+      display: flex; gap: 16px;
+      font-size: .8rem; color: var(--muted);
+    }
+    .mock-run-meta span { display: flex; align-items: center; gap: 4px; }
+    .mock-presence {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .mock-presence-bar {
+      flex: 1; height: 6px; border-radius: 3px;
+      background: rgba(255,255,255,.08);
+      overflow: hidden; margin-right: 12px;
+    }
+    .mock-presence-fill {
+      height: 100%; width: 85%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+    }
+    .mock-presence-num { font-size: .85rem; font-weight: 700; color: var(--cyan); }
+    .mock-earnings {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      background: rgba(253,255,112,.06);
+      border: 1px solid rgba(253,255,112,.15);
+      border-radius: 12px;
+    }
+    .mock-earnings-label { font-size: .8rem; color: var(--muted); }
+    .mock-earnings-value { font-size: 1.5rem; font-weight: 800; color: var(--yellow); }
+
+    /* ─── MONETIZATION ─── */
+    .monetization-section {
+      padding: 120px 40px;
+      background: var(--dark2);
+      position: relative; overflow: hidden;
+    }
+    .monetization-section::before {
+      content: '';
+      position: absolute; top: -200px; left: -200px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(253,255,112,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .monetization-inner {
+      max-width: 1200px; margin: 0 auto;
+      position: relative; z-index: 2;
+    }
+    .monetization-header {
+      text-align: center; margin-bottom: 72px;
+    }
+    .monetization-eyebrow {
+      font-size: .8rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--yellow); margin-bottom: 16px;
+    }
+    .monetization-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -.04em; margin-bottom: 20px;
+    }
+    .monetization-body {
+      font-size: 1rem; color: var(--muted);
+      max-width: 560px; margin: 0 auto; line-height: 1.65;
+    }
+    .monetization-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+      margin-bottom: 32px;
+    }
+    .m-card-sponsor {
+      background: var(--dark);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 20px; padding: 28px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: transform .4s cubic-bezier(.175,.885,.32,1.275), border-color .3s, box-shadow .3s;
+      cursor: default;
+    }
+    .m-card-sponsor:hover {
+      transform: translateY(-12px);
+      border-color: rgba(253,255,112,.3);
+      box-shadow: 0 24px 60px rgba(253,255,112,.1);
+    }
+    .m-card-sponsor-icon {
+      width: 48px; height: 48px;
+      background: rgba(253,255,112,.08);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .m-card-sponsor-title { font-size: 1.1rem; font-weight: 700; }
+    .m-card-sponsor-example {
+      font-size: .8rem; color: var(--cyan); font-weight: 600;
+      padding: 6px 12px;
+      background: rgba(3,221,207,.06);
+      border-radius: 8px;
+      font-style: italic;
+    }
+    .m-card-sponsor-desc { font-size: .85rem; color: var(--muted); line-height: 1.55; flex: 1; }
+    .m-card-sponsor-earning {
+      display: inline-flex;
+      padding: 8px 16px; border-radius: 100px;
+      font-size: .85rem; font-weight: 800;
+      background: rgba(253,255,112,.1);
+      color: var(--yellow);
+    }
+    .monetization-footnote {
+      text-align: center;
+      font-size: .8rem; color: var(--muted); line-height: 1.6;
+    }
+
+    /* ─── SOCIAL PROOF ─── */
+    .social-section {
+      padding: 120px 40px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .social-header {
+      text-align: center; margin-bottom: 60px;
+    }
+    .social-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -.035em; margin-bottom: 16px;
+    }
+    .social-body {
+      font-size: 1rem; color: var(--muted);
+      max-width: 540px; margin: 0 auto; line-height: 1.65;
+    }
+
+    /* Counter widget */
+    .counter-widget {
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      padding: 40px;
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 24px;
+      max-width: 400px;
+      margin: 0 auto 60px;
+    }
+    .counter-number {
+      font-size: 4rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .counter-label { font-size: .9rem; font-weight: 600; color: var(--muted); }
+    .counter-sub { font-size: .8rem; color: var(--muted); }
+    .counter-bar {
+      width: 100%; height: 8px; border-radius: 4px;
+      background: rgba(255,255,255,.08);
+      overflow: hidden;
+    }
+    .counter-bar-fill {
+      height: 100%; width: 47%; border-radius: 4px;
+      background: linear-gradient(90deg, var(--yellow), var(--cyan));
+      transition: width 1s ease;
+    }
+
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .testimonial-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 20px; padding: 28px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: transform .4s cubic-bezier(.175,.885,.32,1.275), border-color .3s;
+      cursor: default;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(103,78,188,.3);
+    }
+    .testimonial-quote {
+      font-size: .95rem; color: var(--light); line-height: 1.6;
+      font-style: italic; flex: 1;
+    }
+    .testimonial-quote::before {
+      content: '"'; font-size: 2rem; font-weight: 800;
+      color: var(--purple); line-height: 0; vertical-align: -0.4em;
+      margin-right: 4px;
+    }
+    .testimonial-author {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 700; color: white;
+    }
+    .testimonial-info { display: flex; flex-direction: column; gap: 2px; }
+    .testimonial-name { font-size: .85rem; font-weight: 700; color: var(--light); }
+    .testimonial-meta { font-size: .75rem; color: var(--muted); }
+    .testimonial-badge {
+      display: inline-flex;
+      padding: 3px 10px; border-radius: 100px;
+      font-size: .65rem; font-weight: 700;
+      background: rgba(103,78,188,.15); color: #a98ff0;
+      margin-top: 2px;
+    }
+
+    /* ─── FAQ ─── */
+    .faq-section {
+      padding: 120px 40px;
+      background: var(--dark2);
+    }
+    .faq-inner {
+      max-width: 740px; margin: 0 auto;
+    }
+    .faq-header {
+      text-align: center; margin-bottom: 60px;
+    }
+    .faq-eyebrow {
+      font-size: .8rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--pink); margin-bottom: 16px;
+    }
+    .faq-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -.035em;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .faq-question {
+      width: 100%; padding: 24px 0;
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; text-align: left;
+      font-family: var(--font);
+      font-size: 1rem; font-weight: 600; color: var(--light);
+      transition: color .25s;
+    }
+    .faq-question:hover { color: var(--cyan); }
+    .faq-toggle {
+      font-size: 1.2rem; font-weight: 700; color: var(--cyan);
+      transition: transform .3s;
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s ease, padding .4s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; }
+    .faq-answer-inner {
+      padding: 0 0 24px;
+      font-size: .9rem; color: var(--muted); line-height: 1.7;
+    }
+
+    /* ─── CTA FINAL ─── */
+    .cta-final {
+      padding: 140px 40px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+      background: var(--dark);
+    }
+    .cta-bg-glow {
+      position: absolute;
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, rgba(3,221,207,.15) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      pointer-events: none;
+    }
+    .cta-super {
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 800; line-height: 1;
+      letter-spacing: -.04em;
+      position: relative; z-index: 2;
+      margin-bottom: 24px;
+    }
+    .cta-super em {
+      font-style: normal;
+      color: var(--cyan);
+    }
+    .cta-body {
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 500px; line-height: 1.7;
+      margin-bottom: 48px; position: relative; z-index: 2;
+    }
+
+    /* CTA bottom form */
+    .cta-form {
+      display: flex; gap: 12px;
+      max-width: 480px; width: 100%;
+      position: relative; z-index: 2;
+    }
+    .cta-form input {
+      flex: 1;
+      padding: 16px 20px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: var(--dark2);
+      color: var(--light);
+      font-family: var(--font);
+      font-size: .95rem;
+      outline: none;
+      transition: border-color .25s;
+    }
+    .cta-form input::placeholder { color: var(--muted); }
+    .cta-form input:focus { border-color: var(--purple); }
+    .cta-form .btn-primary {
+      width: auto; padding: 16px 32px;
+      white-space: nowrap;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark2);
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo { font-size: 1.1rem; font-weight: 800; letter-spacing: -.03em; }
+    .footer-logo span { color: var(--cyan); }
+    .footer-text { font-size: .8rem; color: var(--muted); }
+
+    /* ─── REVEAL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.from-left { transform: translateX(-50px) translateY(0); }
+    .reveal.from-right { transform: translateX(50px) translateY(0); }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0) translateX(0);
+    }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ─── MARQUEE CARDS BAND ─── */
+    .marquee-band {
+      width: 100%; overflow: hidden; padding: 48px 0;
+      background: var(--dark2);
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .marquee-track {
+      display: flex; gap: 20px; width: max-content;
+      animation: marquee-slide 35s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee-slide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .m-card {
+      width: 220px; flex-shrink: 0;
+      background: var(--dark);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 16px; padding: 20px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .m-card-img {
+      width: 100%; aspect-ratio: 4/3; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(103,78,188,.25), rgba(236,111,155,.15));
+      border: 1px solid rgba(255,255,255,.05);
+      position: relative; overflow: hidden;
+    }
+    .m-card-label { font-size: .75rem; font-weight: 600; color: var(--muted); }
+    .m-card-value { font-size: 1.5rem; font-weight: 800; color: var(--light); line-height: 1; }
+    .m-card-sub { font-size: .7rem; color: var(--muted); }
+    .placeholder-shimmer {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.04) 50%, transparent 100%);
+      animation: shimmer 2.5s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .floater-1, .floater-2, .floater-5, .floater-6 { display: none; }
+      .hero-form { grid-template-columns: 1fr; }
+      .hero-trust { flex-direction: column; gap: 8px; }
+      .pain-inner { grid-template-columns: 1fr; gap: 40px; }
+      .feature-header { grid-template-columns: 1fr; gap: 16px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .mock-ui { transform: rotate(0deg); }
+      .monetization-cards { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .feature-section { padding: 80px 24px; }
+      .monetization-section { padding: 80px 24px; }
+      .social-section { padding: 80px 24px; }
+      .faq-section { padding: 80px 24px; }
+      .cta-final { padding: 100px 24px; }
+      .cta-form { flex-direction: column; }
+      .cta-form .btn-primary { width: 100%; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <div class="nav-dot"></div>
+      Grupo<span>OS</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#funcionalidades">Funcionalidades</a></li>
+      <li><a href="#monetizacao">Monetização</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#hero-form" class="nav-cta">Quero acesso antecipado</a>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow"></div>
+
+    <!-- Floating cards background -->
+    <div class="hero-floaters">
+      <div class="floater floater-1">
+        <div class="tag" style="background:rgba(3,221,207,.15);color:#03ddcf;">Saída</div>
+        <strong>Sábado 6h — Ibirapuera</strong><br>
+        <span>34 presenças confirmadas</span>
+      </div>
+      <div class="floater floater-2">
+        <div class="tag" style="background:rgba(253,255,112,.15);color:#fdff70;">Patrocínio</div>
+        <strong>Desafio Asics 80km</strong><br>
+        <span>R$ 800 disponíveis</span>
+      </div>
+      <div class="floater floater-3">
+        <div class="tag" style="background:rgba(236,111,155,.15);color:#ec6f9b;">Engajamento</div>
+        <strong>Aderência semanal 94%</strong><br>
+        <span>+12% vs mês anterior</span>
+      </div>
+      <div class="floater floater-4">
+        <div class="tag" style="background:rgba(103,78,188,.2);color:#a98ff0;">Ganhos</div>
+        <strong>R$ 1.420 este mês</strong><br>
+        <span>3 patrocínios ativos</span>
+      </div>
+      <div class="floater floater-5">
+        <span style="font-size:.65rem;color:#03ddcf;font-weight:700;letter-spacing:.08em">GRUPO · 6 MESES</span><br>
+        <strong style="font-size:1.2rem">187 corredores</strong><br>
+        <span>Crescimento orgânico</span>
+      </div>
+      <div class="floater floater-6">
+        <div class="tag" style="background:rgba(253,255,112,.15);color:#fdff70;">Recap pronto</div>
+        <strong>Saída de domingo</strong><br>
+        <span>Aguardando envio</span>
+      </div>
+    </div>
+
+    <div class="hero-content reveal">
+      <div class="hero-eyebrow">Para líderes de grupos de corrida</div>
+      <h1 class="hero-h1">
+        Seu grupo de corrida merece mais do que um <em>grupo no WhatsApp.</em>
+      </h1>
+      <p class="hero-sub">
+        Gerencie suas saídas, engaje seus corredores e ainda ganhe dinheiro com as marcas que já patrocinam o esporte. Tudo em um lugar. De graça.
+      </p>
+
+      <form class="hero-form" id="hero-form" onsubmit="handleSubmit(event)">
+        <input type="text" name="name" placeholder="Seu nome" required>
+        <input type="tel" name="whatsapp" placeholder="(11) 99999-9999" required>
+        <input type="text" name="city" placeholder="Sua cidade" required>
+        <select name="groupSize" required onchange="this.classList.toggle('has-value', this.value !== '')">
+          <option value="">Tamanho do grupo</option>
+          <option value="under30">Menos de 30 corredores</option>
+          <option value="30to100">30–100 corredores</option>
+          <option value="100to300">100–300 corredores</option>
+          <option value="over300">Mais de 300 corredores</option>
+        </select>
+        <button type="submit" class="btn-primary full-width">
+          Quero acesso antecipado
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <h3>Você está na lista!</h3>
+        <p>Entraremos em contato pelo WhatsApp nas próximas 48h. Os primeiros 100 líderes têm acesso permanente gratuito.</p>
+      </div>
+
+      <div class="hero-trust" id="hero-trust">
+        <span><span class="check">&#10003;</span> Gratuito para líderes</span>
+        <span><span class="check">&#10003;</span> Sem cartão de crédito</span>
+        <span><span class="check">&#10003;</span> Acesso em 48h</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TICKER ─── -->
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <div class="ticker-item"><span>Saídas Organizadas</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Presença em 1 Toque<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Dados do Grupo</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Patrocínios que Pagam Você<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Comunicação que Chega</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Gratuito para Líderes<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Desafios Patrocinados</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Comunidade em Escala<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Saídas Organizadas</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Presença em 1 Toque<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Dados do Grupo</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Patrocínios que Pagam Você<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Comunicação que Chega</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Gratuito para Líderes<span class="ticker-sep">·</span></div>
+      <div class="ticker-item"><span>Desafios Patrocinados</span><span class="ticker-sep">·</span></div>
+      <div class="ticker-item">Comunidade em Escala<span class="ticker-sep">·</span></div>
+    </div>
+  </div>
+
+  <!-- ─── PAIN SECTION ─── -->
+  <section class="pain-section">
+    <div class="pain-inner">
+      <div class="reveal from-left">
+        <h2 class="pain-title">
+          Você ainda manda áudio no WhatsApp às <em>23h</em> para confirmar quem vai na saída de amanhã?
+        </h2>
+      </div>
+      <div class="pain-bullets reveal from-right reveal-delay-1">
+        <div class="pain-bullet">
+          <div class="pain-bullet-num">01</div>
+          <div class="pain-bullet-content">
+            <div class="pain-bullet-headline">WhatsApp não é ferramenta de gestão.</div>
+            <div class="pain-bullet-text">Confirmações perdidas, avisos ignorados, e você refazendo a lista toda semana.</div>
+          </div>
+        </div>
+        <div class="pain-bullet">
+          <div class="pain-bullet-num">02</div>
+          <div class="pain-bullet-content">
+            <div class="pain-bullet-headline">Você constrói a comunidade. A marca patrocina a corrida. Você não vê nada.</div>
+            <div class="pain-bullet-text">Você trouxe 200 pessoas para o evento. O cheque foi para o organizador.</div>
+          </div>
+        </div>
+        <div class="pain-bullet">
+          <div class="pain-bullet-num">03</div>
+          <div class="pain-bullet-content">
+            <div class="pain-bullet-headline">Quanto vale o seu grupo? Você nunca vai saber se não tem os dados.</div>
+            <div class="pain-bullet-text">Presença, engajamento, retenção — tudo acontece e desaparece no chat.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FEATURES ─── -->
+  <section class="feature-section" id="funcionalidades">
+    <div class="feature-header">
+      <div class="reveal">
+        <p class="feature-num">O que você ganha</p>
+        <h2 class="feature-title">Uma sede para o seu grupo. Que trabalha por você.</h2>
+      </div>
+      <p class="feature-support reveal from-right reveal-delay-2">
+        Organize suas saídas, acompanhe seus corredores e transforme o trabalho que você já faz em receita real.
+      </p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-list">
+        <div class="feature-item reveal reveal-delay-1">
+          <div class="feature-item-icon" style="background: rgba(3,221,207,.1);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <div class="feature-item-content">
+            <div class="feature-item-label">Saídas organizadas</div>
+            <div class="feature-item-desc">Crie saídas recorrentes, defina o percurso e o pace. Seus corredores confirmam presença em 1 toque.</div>
+          </div>
+        </div>
+        <div class="feature-item reveal reveal-delay-2">
+          <div class="feature-item-icon" style="background: rgba(103,78,188,.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <div class="feature-item-content">
+            <div class="feature-item-label">Comunicação que chega</div>
+            <div class="feature-item-desc">Notificações no app, não mais áudio às 23h. Avisos de cancelamento, mudança de percurso, tudo em um lugar.</div>
+          </div>
+        </div>
+        <div class="feature-item reveal reveal-delay-3">
+          <div class="feature-item-icon" style="background: rgba(236,111,155,.1);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <div class="feature-item-content">
+            <div class="feature-item-label">Dados do seu grupo</div>
+            <div class="feature-item-desc">Veja quem está mais ativo, qual saída tem mais presença, como seu grupo cresce ao longo do tempo.</div>
+          </div>
+        </div>
+        <div class="feature-item reveal reveal-delay-4">
+          <div class="feature-item-icon" style="background: rgba(253,255,112,.08);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2"><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <div class="feature-item-content">
+            <div class="feature-item-label">Patrocínios que pagam você</div>
+            <div class="feature-item-desc">Marcas do universo do esporte pagam para alcançar o seu grupo. Você recebe parte diretamente na sua conta.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mock UI -->
+      <div class="mock-ui reveal from-right reveal-delay-2">
+        <div class="mock-header">
+          <div class="mock-header-label">Próxima saída</div>
+          <div class="mock-header-badge">Sábado</div>
+        </div>
+        <div class="mock-run-card">
+          <div class="mock-run-title">Treino Longo — Ibirapuera</div>
+          <div class="mock-run-meta">
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 6:00</span>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> 12km</span>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> 5:30/km</span>
+          </div>
+          <div class="mock-presence">
+            <div class="mock-presence-bar"><div class="mock-presence-fill"></div></div>
+            <div class="mock-presence-num">34 confirmados</div>
+          </div>
+        </div>
+        <div class="mock-earnings">
+          <div class="mock-earnings-label">Ganhos este mês</div>
+          <div class="mock-earnings-value">R$ 1.420</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MARQUEE BAND ─── -->
+  <div class="marquee-band">
+    <div class="marquee-track">
+      <div class="m-card">
+        <div class="m-card-img"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Corredores ativos</div>
+        <div class="m-card-value" style="color: var(--cyan);">187</div>
+        <div class="m-card-sub">Média por grupo</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(253,255,112,.2), rgba(3,221,207,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Saídas organizadas</div>
+        <div class="m-card-value" style="color: var(--yellow);">1.2k</div>
+        <div class="m-card-sub">Neste mês</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(236,111,155,.2), rgba(103,78,188,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Confirmações</div>
+        <div class="m-card-value" style="color: var(--pink);">94%</div>
+        <div class="m-card-sub">Em 1 toque</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(103,78,188,.25), rgba(3,221,207,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Receita média</div>
+        <div class="m-card-value" style="color: #a98ff0;">R$ 1.2k</div>
+        <div class="m-card-sub">Por mês por líder</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Satisfação</div>
+        <div class="m-card-value" style="color: var(--cyan);">4.9</div>
+        <div class="m-card-sub">Avaliação dos líderes</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(253,255,112,.15), rgba(236,111,155,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Tempo economizado</div>
+        <div class="m-card-value" style="color: var(--yellow);">8h</div>
+        <div class="m-card-sub">Por semana por líder</div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="m-card">
+        <div class="m-card-img"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Corredores ativos</div>
+        <div class="m-card-value" style="color: var(--cyan);">187</div>
+        <div class="m-card-sub">Média por grupo</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(253,255,112,.2), rgba(3,221,207,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Saídas organizadas</div>
+        <div class="m-card-value" style="color: var(--yellow);">1.2k</div>
+        <div class="m-card-sub">Neste mês</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(236,111,155,.2), rgba(103,78,188,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Confirmações</div>
+        <div class="m-card-value" style="color: var(--pink);">94%</div>
+        <div class="m-card-sub">Em 1 toque</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(103,78,188,.25), rgba(3,221,207,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Receita média</div>
+        <div class="m-card-value" style="color: #a98ff0;">R$ 1.2k</div>
+        <div class="m-card-sub">Por mês por líder</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Satisfação</div>
+        <div class="m-card-value" style="color: var(--cyan);">4.9</div>
+        <div class="m-card-sub">Avaliação dos líderes</div>
+      </div>
+      <div class="m-card">
+        <div class="m-card-img" style="background: linear-gradient(135deg, rgba(253,255,112,.15), rgba(236,111,155,.1));"><div class="placeholder-shimmer"></div></div>
+        <div class="m-card-label">Tempo economizado</div>
+        <div class="m-card-value" style="color: var(--yellow);">8h</div>
+        <div class="m-card-sub">Por semana por líder</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── MONETIZATION ─── -->
+  <section class="monetization-section" id="monetizacao">
+    <div class="monetization-inner">
+      <div class="monetization-header reveal">
+        <p class="monetization-eyebrow">Como você ganha dinheiro</p>
+        <h2 class="monetization-title">Você construiu a comunidade.<br>Agora ela <em style="color:var(--cyan);font-style:normal;">trabalha por você.</em></h2>
+        <p class="monetization-body">Marcas de calçados, nutrição, seguros e eventos pagam para se conectar com grupos de corrida ativos. A gente faz a ponte, você fica com uma parte de cada patrocínio.</p>
+      </div>
+
+      <div class="monetization-cards">
+        <div class="m-card-sponsor reveal reveal-delay-1">
+          <div class="m-card-sponsor-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div class="m-card-sponsor-title">Desafio Patrocinado</div>
+          <div class="m-card-sponsor-example">"Corra 80km em novembro com a Asics"</div>
+          <p class="m-card-sponsor-desc">Marca patrocina, seus corredores completam, você recebe.</p>
+          <div class="m-card-sponsor-earning">Até R$ 800 / desafio</div>
+        </div>
+        <div class="m-card-sponsor reveal reveal-delay-2">
+          <div class="m-card-sponsor-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="m-card-sponsor-title">Destaque Pós-Saída</div>
+          <div class="m-card-sponsor-example">"Recap da sua saída com oferta exclusiva da marca"</div>
+          <p class="m-card-sponsor-desc">Resumo automático da saída com visibilidade da marca.</p>
+          <div class="m-card-sponsor-earning">Até R$ 200 / saída</div>
+        </div>
+        <div class="m-card-sponsor reveal reveal-delay-3">
+          <div class="m-card-sponsor-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </div>
+          <div class="m-card-sponsor-title">Oferta Exclusiva</div>
+          <div class="m-card-sponsor-example">"Desconto só para o seu grupo"</div>
+          <p class="m-card-sponsor-desc">Oferta exclusiva para membros — você ativa, a marca converte.</p>
+          <div class="m-card-sponsor-earning">Comissão por venda</div>
+        </div>
+      </div>
+
+      <p class="monetization-footnote reveal">
+        Grupos com 100–300 corredores geram entre R$ 500–2.000 / mês em média estimada*<br>
+        <small>*Projeção baseada em benchmarks de mercado</small>
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── SOCIAL PROOF ─── -->
+  <section class="social-section">
+    <div class="social-header reveal">
+      <h2 class="social-title">Primeiros 100 líderes moldam o produto.</h2>
+      <p class="social-body">Estamos construindo isso com líderes reais de grupos reais. Os primeiros 100 a entrar têm acesso permanente gratuito e participam das decisões de produto.</p>
+    </div>
+
+    <div class="counter-widget reveal reveal-delay-1">
+      <div class="counter-number">47</div>
+      <div class="counter-label">líderes na lista de espera</div>
+      <div class="counter-bar"><div class="counter-bar-fill"></div></div>
+      <div class="counter-sub">de 100 vagas fundadoras</div>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-quote">Meu grupo tem 180 pessoas e eu ainda controlo tudo por planilha.</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">RM</div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Rodrigo M.</div>
+            <div class="testimonial-meta">São Paulo</div>
+            <div class="testimonial-badge">180 corredores</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-quote">Fiz parceria com uma loja de corrida mas não tinha como medir nada.</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">CT</div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Camila T.</div>
+            <div class="testimonial-meta">Rio de Janeiro</div>
+            <div class="testimonial-badge">95 corredores</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-3">
+        <div class="testimonial-quote">Todo domingo confirmo presença no WhatsApp. São 4 grupos diferentes.</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">FA</div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Felipe A.</div>
+            <div class="testimonial-meta">Belo Horizonte</div>
+            <div class="testimonial-badge">230 corredores</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section class="faq-section" id="faq">
+    <div class="faq-inner">
+      <div class="faq-header reveal">
+        <p class="faq-eyebrow">Perguntas Frequentes</p>
+        <h2 class="faq-title">Tudo que você quer saber antes de entrar.</h2>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-1">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          É realmente gratuito para líderes de grupo?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Sim, sem condições. O modelo de negócio é baseado em patrocínio de marcas — elas pagam para acessar grupos como o seu. Você nunca paga nada.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Como os patrocínios chegam até o meu grupo?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">A plataforma conecta marcas com grupos baseado em perfil (cidade, tamanho, tipo de corrida). Você aprova antes de qualquer coisa chegar para seus membros.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Meu grupo usa muito WhatsApp. Meus corredores vão migrar?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">O app é um complemento, não um substituto forçado. Você continua usando o WhatsApp se quiser — mas passa a ter um lugar onde os dados ficam registrados e onde o patrocínio acontece.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Quando o produto vai estar disponível?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Estamos lançando em beta fechado para os primeiros 100 grupos nas próximas 8 semanas. Quem está na lista tem acesso prioritário e ajuda a definir as funcionalidades.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal reveal-delay-3">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Vocês vendem os dados do meu grupo?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Não. Os dados do seu grupo são seus. O patrocínio funciona com você ativando a campanha para seus membros — as marcas não têm acesso direto aos seus corredores.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA FINAL ─── -->
+  <section class="cta-final">
+    <div class="cta-bg-glow"></div>
+    <p class="cta-super reveal">
+      Seu grupo.<br>Sua comunidade.<br><em>Sua receita.</em>
+    </p>
+    <p class="cta-body reveal reveal-delay-2">
+      Você já faz o trabalho duro de juntar pessoas e manter o grupo ativo. Agora é hora de ter a ferramenta — e o retorno — que você merece.
+    </p>
+    <div class="cta-form reveal reveal-delay-3">
+      <input type="email" placeholder="Seu melhor e-mail" id="cta-email">
+      <button class="btn-primary" onclick="handleCtaSubmit()">
+        Entrar na lista
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-logo">Grupo<span>OS</span></div>
+    <div class="footer-text">&copy; 2026 Grupo de Corrida OS &middot; Para líderes que constroem comunidades</div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Card tilt on mouse move
+    document.querySelectorAll('.feature-item, .m-card-sponsor, .testimonial-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - .5;
+        const y = (e.clientY - rect.top) / rect.height - .5;
+        card.style.transform = `translateY(-8px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+
+    // FAQ toggle
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      item.classList.toggle('open');
+    }
+
+    // Hero form submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('hero-form');
+      const success = document.getElementById('form-success');
+      const trust = document.getElementById('hero-trust');
+      form.style.display = 'none';
+      trust.style.display = 'none';
+      success.classList.add('show');
+    }
+
+    // CTA form submit
+    function handleCtaSubmit() {
+      const email = document.getElementById('cta-email');
+      if (email.value) {
+        email.value = '';
+        email.placeholder = 'Pronto! Entraremos em contato.';
+        email.style.borderColor = 'var(--cyan)';
+      }
+    }
+  </script>
+</body>
+</html>
