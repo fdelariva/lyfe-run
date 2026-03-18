@@ -1,0 +1,20 @@
+{
+  "triggered_by": {
+    "lp_variant_id": "h5-lp-hero-a",
+    "section": "monetization",
+    "metric": "scroll_reach_pct",
+    "current_value": 0.39
+  },
+  "proposed_variant": {
+    "variant_id": "h5-lp-hero-a-v2",
+    "section": "pain_strip",
+    "original_copy": "Seu grupo de corrida merece mais do que um grupo no WhatsApp.",
+    "new_copy": {
+      "headline_pt": "Quanto você ganha liderando seu grupo?",
+      "subheadline_pt": "Líderes como você movimentam milhares de corredores. Marcas querem pagar por isso.",
+      "body_pt": "Enquanto você organiza treinos no WhatsApp, marcas de corrida estão procurando comunidades como a sua para patrocinar. A diferença entre gerenciar um grupo e liderar um negócio é uma plataforma."
+    },
+    "rationale": "Monetization section only reached by 39% of sessions. Rewriting pain strip to create stronger narrative pull toward earning section by leading with revenue question.",
+    "a_b_split": "50/50"
+  }
+}

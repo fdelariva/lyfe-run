@@ -1,0 +1,46 @@
+{
+  "current_allocation": [
+    {
+      "creative_id": "h5-01",
+      "daily_spend_brl": 40,
+      "cac_brl": 188.89
+    },
+    {
+      "creative_id": "h5-02",
+      "daily_spend_brl": 40,
+      "cac_brl": 211.43
+    },
+    {
+      "creative_id": "h5-03",
+      "daily_spend_brl": 40,
+      "cac_brl": 84
+    }
+  ],
+  "recommended_allocation": [
+    {
+      "creative_id": "h5-01",
+      "action": "maintain",
+      "recommended_daily_spend_brl": 40,
+      "reason": "Mid-range performance. Maintain to continue collecting data on identity angle."
+    },
+    {
+      "creative_id": "h5-02",
+      "action": "pause",
+      "recommended_daily_spend_brl": 0,
+      "reason": "CTR 0.011, CPC R$1.42, thumb-stop 0.14. All thresholds breached. Pause and replace with H5-04."
+    },
+    {
+      "creative_id": "h5-03",
+      "action": "increase",
+      "recommended_daily_spend_brl": 80,
+      "reason": "Best performer: CTR 0.022, CPC R$0.66. Score 91. Increase to capture more of earn_money audience."
+    }
+  ],
+  "total_budget_unchanged": true,
+  "manual_steps": [
+    "In Meta Ads Manager → Campaigns → H5-POC → Ad Set H5-02: pause ad",
+    "In Meta Ads Manager → Campaigns → H5-POC → Ad Set H5-03: increase daily budget from R$40 to R$80",
+    "In Meta Ads Manager → Campaigns → H5-POC → Ad Set H5-01: keep daily budget at R$40",
+    "Verify total daily spend remains at R$120 (R$40 + R$0 + R$80)"
+  ]
+}

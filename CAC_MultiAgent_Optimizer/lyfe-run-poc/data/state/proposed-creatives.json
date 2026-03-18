@@ -1,0 +1,13 @@
+{
+  "triggered_by": "h5-02",
+  "new_creative": {
+    "proposed_id": "h5-04",
+    "hypothesis": "H5",
+    "angle": "earn_money",
+    "image_tool": "midjourney",
+    "image_prompt": "Brazilian run club leader standing on dark asphalt at dawn, holding smartphone showing revenue dashboard, electric yellow-green (#E8FF3A) glow on face, urban São Paulo skyline background, authentic not staged, cinematic lighting --ar 4:5 --style raw --v 6.1",
+    "headline_pt": "Seu grupo já gera receita para marcas. E para você?",
+    "cta_pt": "Quanto sua comunidade vale?",
+    "rationale": "H5-02 (pain angle) underperformed. Pivoting to earn_money variation with revenue visualization to match H5-03 success pattern."
+  }
+}

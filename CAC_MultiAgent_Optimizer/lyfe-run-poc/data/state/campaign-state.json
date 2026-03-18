@@ -1,0 +1,30 @@
+{
+  "normalized_at": "2026-03-18T19:27:41.200Z",
+  "window_days": 7,
+  "top_performing_creative": {
+    "creative_id": "h5-03",
+    "ctr": 0.022,
+    "cpc_brl": 0.66,
+    "hypothesis": "H5"
+  },
+  "bottom_performing_creative": {
+    "creative_id": "h5-02",
+    "ctr": 0.011,
+    "cpc_brl": 1.42,
+    "hypothesis": "H5"
+  },
+  "lp_variants": [
+    {
+      "lp_variant_id": "h5-lp-hero-a",
+      "overall_cvr": 0.047,
+      "weakest_section": "faq",
+      "weakest_section_metric": 0.22
+    },
+    {
+      "lp_variant_id": "h5-lp-hero-b",
+      "overall_cvr": 0.083,
+      "weakest_section": "faq",
+      "weakest_section_metric": 0.34
+    }
+  ]
+}

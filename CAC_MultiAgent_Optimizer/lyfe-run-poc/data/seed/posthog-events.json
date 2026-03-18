@@ -1,0 +1,36 @@
+[
+  {
+    "lp_variant_id": "h5-lp-hero-a",
+    "hypothesis": "H5",
+    "hero_framing": "operational_relief",
+    "sessions": 198,
+    "avg_time_on_page_sec": 74,
+    "bounce_rate": 0.61,
+    "sections": {
+      "hero": { "viewed_pct": 1.0, "form_start_rate": 0.18 },
+      "pain_strip": { "scroll_reach_pct": 0.71 },
+      "features": { "scroll_reach_pct": 0.58 },
+      "monetization": { "scroll_reach_pct": 0.39 },
+      "faq": { "scroll_reach_pct": 0.22 }
+    },
+    "form_start_to_submit_rate": 0.52,
+    "overall_cvr": 0.047
+  },
+  {
+    "lp_variant_id": "h5-lp-hero-b",
+    "hypothesis": "H5",
+    "hero_framing": "earning_potential",
+    "sessions": 224,
+    "avg_time_on_page_sec": 98,
+    "bounce_rate": 0.44,
+    "sections": {
+      "hero": { "viewed_pct": 1.0, "form_start_rate": 0.27 },
+      "pain_strip": { "scroll_reach_pct": 0.79 },
+      "features": { "scroll_reach_pct": 0.68 },
+      "monetization": { "scroll_reach_pct": 0.61 },
+      "faq": { "scroll_reach_pct": 0.34 }
+    },
+    "form_start_to_submit_rate": 0.63,
+    "overall_cvr": 0.083
+  }
+]
