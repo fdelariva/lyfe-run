@@ -1,11 +1,11 @@
 [
   {
-    "timestamp": "2026-03-18T19:27:41.261Z",
+    "timestamp": "2026-03-19T13:37:39.558Z",
     "agent": "data-collector",
     "input_summary": "3 seed files: 15 creatives, 2 LP variants, 29 leads",
     "output_summary": "Top creative: h5-03 (CTR 0.022), Bottom: h5-02 (CTR 0.011)",
     "raw_output": {
-      "normalized_at": "2026-03-18T19:27:41.200Z",
+      "normalized_at": "2026-03-19T13:37:39.487Z",
       "window_days": 7,
       "top_performing_creative": {
         "creative_id": "h5-03",
@@ -40,7 +40,7 @@
     }
   },
   {
-    "timestamp": "2026-03-18T19:27:41.263Z",
+    "timestamp": "2026-03-19T13:37:39.559Z",
     "agent": "performance-analyst",
     "input_summary": "DataCollectorOutput + 15 creatives + 2 LP variants",
     "output_summary": "3 creatives scored, 4 LP alerts triggered, 4 actions",
@@ -117,7 +117,7 @@
     }
   },
   {
-    "timestamp": "2026-03-18T19:27:41.263Z",
+    "timestamp": "2026-03-19T13:37:39.560Z",
     "agent": "creative-generator",
     "input_summary": "Loser creative: h5-02 (score 22)",
     "output_summary": "New creative: h5-04 (angle: earn_money, tool: midjourney)",
@@ -140,7 +140,7 @@
     }
   },
   {
-    "timestamp": "2026-03-18T19:27:41.265Z",
+    "timestamp": "2026-03-19T13:37:39.561Z",
     "agent": "lp-optimizer",
     "input_summary": "Triggered alert: h5-lp-hero-a / monetization (scroll_reach_pct = 0.39)",
     "output_summary": "Proposed variant: h5-lp-hero-a-v2, section: pain_strip, split: 50/50",
@@ -170,7 +170,7 @@
     }
   },
   {
-    "timestamp": "2026-03-18T19:27:41.266Z",
+    "timestamp": "2026-03-19T13:37:39.562Z",
     "agent": "budget-allocator",
     "input_summary": "3 scored creatives, 15 meta entries",
     "output_summary": "Budget: R$120/day → R$120/day, 1 paused, 4 manual steps",
@@ -219,66 +219,6 @@
         "In Meta Ads Manager → Campaigns → H5-POC → Ad Set H5-01: keep daily budget at R$40",
         "Verify total daily spend remains at R$120 (R$40 + R$0 + R$80)"
       ]
-    },
-    "tokens_used": {
-      "input": 0,
-      "output": 0
-    }
-  },
-  {
-    "timestamp": "2026-03-18T19:28:17.357Z",
-    "agent": "evaluation",
-    "input_summary": "Creative: h5-04, LP: h5-lp-hero-a-v2, Budget: 3 allocations",
-    "output_summary": "Projected CAC: R$52.5 (current: R$57.93, improvement: 9.4%)",
-    "raw_output": {
-      "simulation_notes": "Projections based on Brazilian Instagram fitness ad benchmarks and earn_money framing uplift data. Conservative estimates used where benchmark data was limited.",
-      "projected_results": [
-        {
-          "creative_id": "h5-01",
-          "projected_ctr": 0.016,
-          "projected_cpc_brl": 0.95,
-          "projected_thumb_stop": 0.21,
-          "confidence": "high",
-          "reasoning": "No changes to this creative. Projecting current performance."
-        },
-        {
-          "creative_id": "h5-04",
-          "projected_ctr": 0.02,
-          "projected_cpc_brl": 0.75,
-          "projected_thumb_stop": 0.26,
-          "confidence": "medium",
-          "reasoning": "Earn_money angle with revenue visualization. Benchmarks show 30-50% CTR uplift vs pain angle. Conservative estimate: 82% of H5-03 performance."
-        },
-        {
-          "creative_id": "h5-03",
-          "projected_ctr": 0.023,
-          "projected_cpc_brl": 0.63,
-          "projected_thumb_stop": 0.3,
-          "confidence": "high",
-          "reasoning": "Increased budget may slightly improve delivery optimization. Marginal gains projected."
-        }
-      ],
-      "projected_lp_results": [
-        {
-          "variant_id": "h5-lp-hero-a-v2",
-          "projected_cvr": 0.068,
-          "projected_form_start_rate": 0.24,
-          "projected_monetization_reach_pct": 0.52,
-          "confidence": "medium",
-          "reasoning": "Earning potential framing in pain strip should increase scroll depth to monetization section. Benchmark: benefit-first converts 15-25% better."
-        },
-        {
-          "variant_id": "h5-lp-hero-b",
-          "projected_cvr": 0.085,
-          "projected_form_start_rate": 0.28,
-          "projected_monetization_reach_pct": 0.63,
-          "confidence": "high",
-          "reasoning": "No changes. Slight improvement from better-qualified traffic via earn_money creatives."
-        }
-      ],
-      "projected_cac_brl": 52.5,
-      "vs_current_cac_brl": 57.93,
-      "improvement_pct": 9.4
     },
     "tokens_used": {
       "input": 0,

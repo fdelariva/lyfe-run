@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Nav from './components/Nav';
 import CreativeCard from './components/CreativeCard';
 import FunnelChart from './components/FunnelChart';
 import BudgetTable from './components/BudgetTable';
@@ -191,6 +192,8 @@ export default function Dashboard() {
   const proposed = state?.proposedCreatives?.new_creative;
 
   return (
+    <>
+    <Nav />
     <main className="max-w-5xl mx-auto px-6 py-10">
       {/* Section 1: Campaign Header */}
       <Section title="Campaign Overview — H5">
@@ -360,5 +363,6 @@ export default function Dashboard() {
         <DecisionLog entries={log as never[]} />
       </Section>
     </main>
+    </>
   );
 }

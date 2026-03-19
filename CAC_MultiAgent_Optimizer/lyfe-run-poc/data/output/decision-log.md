@@ -1,12 +1,12 @@
 # CAC Multi-Agent Optimizer — Decision Log
 
-**Run started:** 2026-03-18 16:27:41
+**Run started:** 2026-03-19 10:37:39
 
 ---
 
 ## data-collector
 
-**Time:** 16:27:41 | **Tokens:** 0 (0 in / 0 out)
+**Time:** 10:37:39 | **Tokens:** 0 (0 in / 0 out)
 
 **Input:** 3 seed files: 15 creatives, 2 LP variants, 29 leads
 
@@ -17,7 +17,7 @@
 
 ```json
 {
-  "normalized_at": "2026-03-18T19:27:41.200Z",
+  "normalized_at": "2026-03-19T13:37:39.487Z",
   "window_days": 7,
   "top_performing_creative": {
     "creative_id": "h5-03",
@@ -53,7 +53,7 @@
 ---
 ## performance-analyst
 
-**Time:** 16:27:41 | **Tokens:** 0 (0 in / 0 out)
+**Time:** 10:37:39 | **Tokens:** 0 (0 in / 0 out)
 
 **Input:** DataCollectorOutput + 15 creatives + 2 LP variants
 
@@ -137,7 +137,7 @@
 ---
 ## creative-generator
 
-**Time:** 16:27:41 | **Tokens:** 0 (0 in / 0 out)
+**Time:** 10:37:39 | **Tokens:** 0 (0 in / 0 out)
 
 **Input:** Loser creative: h5-02 (score 22)
 
@@ -167,7 +167,7 @@
 ---
 ## lp-optimizer
 
-**Time:** 16:27:41 | **Tokens:** 0 (0 in / 0 out)
+**Time:** 10:37:39 | **Tokens:** 0 (0 in / 0 out)
 
 **Input:** Triggered alert: h5-lp-hero-a / monetization (scroll_reach_pct = 0.39)
 
@@ -204,7 +204,7 @@
 ---
 ## budget-allocator
 
-**Time:** 16:27:41 | **Tokens:** 0 (0 in / 0 out)
+**Time:** 10:37:39 | **Tokens:** 0 (0 in / 0 out)
 
 **Input:** 3 scored creatives, 15 meta entries
 
@@ -259,73 +259,6 @@
     "In Meta Ads Manager → Campaigns → H5-POC → Ad Set H5-01: keep daily budget at R$40",
     "Verify total daily spend remains at R$120 (R$40 + R$0 + R$80)"
   ]
-}
-```
-
-</details>
-
----
-## evaluation
-
-**Time:** 16:28:17 | **Tokens:** 0 (0 in / 0 out)
-
-**Input:** Creative: h5-04, LP: h5-lp-hero-a-v2, Budget: 3 allocations
-
-**Output:** Projected CAC: R$52.5 (current: R$57.93, improvement: 9.4%)
-
-<details>
-<summary>Raw output</summary>
-
-```json
-{
-  "simulation_notes": "Projections based on Brazilian Instagram fitness ad benchmarks and earn_money framing uplift data. Conservative estimates used where benchmark data was limited.",
-  "projected_results": [
-    {
-      "creative_id": "h5-01",
-      "projected_ctr": 0.016,
-      "projected_cpc_brl": 0.95,
-      "projected_thumb_stop": 0.21,
-      "confidence": "high",
-      "reasoning": "No changes to this creative. Projecting current performance."
-    },
-    {
-      "creative_id": "h5-04",
-      "projected_ctr": 0.02,
-      "projected_cpc_brl": 0.75,
-      "projected_thumb_stop": 0.26,
-      "confidence": "medium",
-      "reasoning": "Earn_money angle with revenue visualization. Benchmarks show 30-50% CTR uplift vs pain angle. Conservative estimate: 82% of H5-03 performance."
-    },
-    {
-      "creative_id": "h5-03",
-      "projected_ctr": 0.023,
-      "projected_cpc_brl": 0.63,
-      "projected_thumb_stop": 0.3,
-      "confidence": "high",
-      "reasoning": "Increased budget may slightly improve delivery optimization. Marginal gains projected."
-    }
-  ],
-  "projected_lp_results": [
-    {
-      "variant_id": "h5-lp-hero-a-v2",
-      "projected_cvr": 0.068,
-      "projected_form_start_rate": 0.24,
-      "projected_monetization_reach_pct": 0.52,
-      "confidence": "medium",
-      "reasoning": "Earning potential framing in pain strip should increase scroll depth to monetization section. Benchmark: benefit-first converts 15-25% better."
-    },
-    {
-      "variant_id": "h5-lp-hero-b",
-      "projected_cvr": 0.085,
-      "projected_form_start_rate": 0.28,
-      "projected_monetization_reach_pct": 0.63,
-      "confidence": "high",
-      "reasoning": "No changes. Slight improvement from better-qualified traffic via earn_money creatives."
-    }
-  ],
-  "projected_cac_brl": 52.5,
-  "vs_current_cac_brl": 57.93,
-  "improvement_pct": 9.4
 }
 ```
 
